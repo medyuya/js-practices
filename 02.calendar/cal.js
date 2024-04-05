@@ -5,4 +5,9 @@ const minimist = require("minimist");
 
 const args = minimist(process.argv.slice(2));
 
-console.log(args);
+const today = new Date();
+const targetYear = args.y ?? today.getFullYear();
+const targetMonth = args.m ?? today.getMonth() + 1;
+const targetDate = new Date(targetYear, targetMonth - 1);
+
+console.log(targetDate);
