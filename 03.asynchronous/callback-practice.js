@@ -71,4 +71,4 @@ db.run(
   },
 );
 
-timers.setTimeout(100);
+await timers.setTimeout(300);
