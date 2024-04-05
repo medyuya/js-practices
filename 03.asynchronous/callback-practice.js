@@ -58,8 +58,6 @@ db.run(
                       console.error(error.message);
                       return;
                     }
-
-                    db.close();
                   });
                 },
               );
