@@ -10,7 +10,7 @@
   },
   "type": "module",
   "dependencies": {
-    "data-fns": "^1.1.0",
+    "date-fns": "^3.6.0",
     "minimist": "^1.2.8"
   }
 }
