@@ -18,18 +18,18 @@ console.log("Su Mo Tu We Th Fr Sa");
 
 const lastDayOfMonth = endOfMonth(targetDate).getDate();
 
-const firstWeekBlank = "   ".repeat(getDay(targetDate));
+const firstWeekBlankText = "   ".repeat(getDay(targetDate));
 
-let date_num = firstWeekBlank;
-let isLastDayOfWeek;
+let weekColumnText = firstWeekBlankText;
+let isFoldedDayOfWeek;
 for (let i = 1; i <= lastDayOfMonth; i++) {
-  if (i.toString().length < 2) date_num += " ";
-  date_num += i.toString() + " ";
+  if (i.toString().length < 2) weekColumnText += " ";
+  weekColumnText += i.toString() + " ";
 
-  isLastDayOfWeek = isSaturday(new Date(targetYear, targetMonth - 1, i));
+  isFoldedDayOfWeek = isSaturday(new Date(targetYear, targetMonth - 1, i));
 
-  if (isLastDayOfWeek || i == lastDayOfMonth) {
-    console.log(date_num);
-    date_num = "";
+  if (isFoldedDayOfWeek || i == lastDayOfMonth) {
+    console.log(weekColumnText);
+    weekColumnText = "";
   }
 }
