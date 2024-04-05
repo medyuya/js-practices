@@ -1,8 +1,10 @@
+import timers from "timers/promises";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const sqlite3 = require("sqlite3");
 const db = new sqlite3.Database(":memory:");
 
+// エラー無し
 db.run(
   "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
   (error) => {
@@ -68,3 +70,5 @@ db.run(
     });
   },
 );
+
+timers.setTimeout(100);
