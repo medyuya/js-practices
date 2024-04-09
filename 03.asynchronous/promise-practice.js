@@ -28,6 +28,30 @@ function getRow(db, query, params) {
   });
 }
 
+function getAllRows(db, query, params) {
+  return new Promise(function (resolve, reject) {
+    const allRows = [];
+    db.each(
+      query,
+      params,
+      (error, row) => {
+        if (error) {
+          reject(error.message);
+          return;
+        }
+        allRows.push(`${row.id} ${row.title}`);
+      },
+      (error, rows) => {
+        if (error) {
+          reject(error.message);
+        } else {
+          resolve(allRows);
+        }
+      },
+    );
+  });
+}
+
 runQuery(db, "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   .then((result) => {
     console.log(result);
@@ -39,4 +63,20 @@ runQuery(db, "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   })
   .then((result) => {
     console.log(result);
+    return runQuery(db, "insert into books(title) values(?)", ["java"]);
+  })
+  .then((result) => {
+    console.log(result);
+    return getRow(db, "SELECT * FROM books WHERE title = ?", ["java"]);
+  })
+  .then((result) => {
+    console.log(result);
+    return getAllRows(db, "select * from books");
+  })
+  .then((result) => {
+    console.log(result);
   });
+
+// .catch((error) => {
+//   console.error("An error occurred:", error);
+// });
