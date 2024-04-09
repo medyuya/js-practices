@@ -33,28 +33,18 @@ console.error("------------");
 db.run(
   "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
   () => {
-    db.run(
-      "insert into books(title) values(?)",
-      "ruby",
-      "swift",
-      function (error) {
+    db.run("insert into posts(title) values(?)", ["ruby"], function (error) {
+      if (error) {
+        console.error(error.message);
+      }
+
+      db.get("SELECT * FROM posts WHERE title = ?", ["ruby"], function (error) {
         if (error) {
           console.error(error.message);
         }
 
-        db.get(
-          "SELECT * FROM books WHERE title = ?",
-          "python",
-          "C言語",
-          function (error) {
-            if (error) {
-              console.error(error.message);
-            }
-
-            db.run("drop table books");
-          },
-        );
-      },
-    );
+        db.run("drop table books");
+      });
+    });
   },
 );
