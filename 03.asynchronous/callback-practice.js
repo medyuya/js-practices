@@ -44,11 +44,7 @@ console.error("------------");
 // エラー有り
 db.run(
   "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
-  (error) => {
-    if (error) {
-      console.error(error.message);
-    }
-
+  () => {
     db.run("insert into books(title) values(?)", "ruby", "swift", (error) => {
       if (error) {
         console.error(error.message);
@@ -87,24 +83,9 @@ db.run(
 
                   db.each(
                     "select * from posts",
-                    (error, row) => {
-                      if (error) {
-                        console.error(error.message);
-                      } else {
-                        console.log(`${row.id} ${row.title}`);
-                      }
-                    },
-                    (error) => {
-                      if (error) {
-                        console.error(error.message);
-                      }
-
-                      db.run("drop table books", (error) => {
-                        if (error) {
-                          console.error(error.message);
-                          return;
-                        }
-                      });
+                    () => {},
+                    () => {
+                      db.run("drop table books");
                     },
                   );
                 },
