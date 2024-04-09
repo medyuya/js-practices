@@ -7,11 +7,11 @@ const db = new sqlite3.Database(":memory:");
 
 function runQuery(db, query, params) {
   return new Promise(function (resolve, reject) {
-    db.run(query, params, (error) => {
+    db.run(query, params, function (error) {
       if (error) {
         reject(error.message);
       } else {
-        resolve("success");
+        resolve(this.lastID);
       }
     });
   });
@@ -19,7 +19,7 @@ function runQuery(db, query, params) {
 
 function getRow(db, query, params) {
   return new Promise(function (resolve, reject) {
-    db.get(query, params, (error, row) => {
+    db.get(query, params, function (error, row) {
       if (error) {
         reject(error.message);
       } else {
@@ -31,8 +31,7 @@ function getRow(db, query, params) {
 
 // エラー無し
 runQuery(db, "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
-  .then((result) => {
-    console.log(result);
+  .then(() => {
     return runQuery(db, "insert into books(title) values(?)", ["ruby"]);
   })
   .then((result) => {
@@ -50,8 +49,7 @@ console.error("------------");
 
 // エラー有り
 runQuery(db, "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
-  .then((result) => {
-    console.log(result);
+  .then(() => {
     return runQuery(db, "insert into posts(title) values(?)", ["ruby"]);
   })
   .catch((result) => {
