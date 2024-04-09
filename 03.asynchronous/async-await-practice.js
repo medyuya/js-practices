@@ -7,11 +7,11 @@ const db = new sqlite3.Database(":memory:");
 
 async function runQuery(db, query, params) {
   return await new Promise(function (resolve, reject) {
-    db.run(query, params, (error) => {
+    db.run(query, params, function (error) {
       if (error) {
         reject(error.message);
       } else {
-        resolve("success");
+        resolve(this.lastID);
       }
     });
   });
@@ -19,7 +19,7 @@ async function runQuery(db, query, params) {
 
 async function getRow(db, query, params) {
   return await new Promise(function (resolve, reject) {
-    db.get(query, params, (error, row) => {
+    db.get(query, params, function (error, row) {
       if (error) {
         reject(error.message);
       } else {
@@ -30,11 +30,10 @@ async function getRow(db, query, params) {
 }
 
 // エラー無し
-let createResult = await runQuery(
+await runQuery(
   db,
   "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
 );
-console.log(createResult);
 
 let insertResult = await runQuery(db, "insert into books(title) values(?)", [
   "ruby",
@@ -52,11 +51,10 @@ console.error("------------");
 
 // エラー有り
 try {
-  const createResult = await runQuery(
+  await runQuery(
     db,
     "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
   );
-  console.log(createResult);
   const insertResult = await runQuery(
     db,
     "insert into posts(title) values(?)",
