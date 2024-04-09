@@ -44,6 +44,7 @@ let getResult = await getRow(db, "SELECT * FROM books WHERE title = ?", [
   "ruby",
 ]);
 console.log(getResult);
+db.run("drop table books");
 
 await timers.setTimeout(300);
 
