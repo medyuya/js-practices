@@ -9,30 +9,18 @@ const db = new sqlite3.Database(":memory:");
 db.run(
   "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
   () => {
-    db.run("insert into books(title) values(?)", "ruby", () => {
-      db.get("SELECT * FROM books WHERE title = ?", "ruby", (error, row) => {
-        console.log(row.id);
+    db.run("insert into books(title) values(?)", "ruby", function () {
+      console.log(this.lastID);
 
-        db.run("insert into books(title) values(?)", "java", () => {
-          db.get(
-            "SELECT * FROM books WHERE title = ?",
-            "java",
-            (error, row) => {
-              console.log(row.id);
+      db.get(
+        "SELECT * FROM books WHERE title = ?",
+        "ruby",
+        function (error, row) {
+          console.log(row.id);
 
-              db.each(
-                "select * from books",
-                (error, row) => {
-                  console.log(`${row.id} ${row.title}`);
-                },
-                () => {
-                  db.run("drop table books");
-                },
-              );
-            },
-          );
-        });
-      });
+          db.run("drop table books");
+        },
+      );
     });
   },
 );
@@ -45,55 +33,32 @@ console.error("------------");
 db.run(
   "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
   () => {
-    db.run("insert into books(title) values(?)", "ruby", "swift", (error) => {
-      if (error) {
-        console.error(error.message);
-      }
+    db.run(
+      "insert into books(title) values(?)",
+      "ruby",
+      "swift",
+      function (error) {
+        if (error) {
+          console.error(error.message);
+        } else {
+          console.log(this.lastID);
+        }
 
-      db.get(
-        "SELECT * FROM books WHERE title = ?",
-        "python",
-        "C言語",
-        (error, row) => {
-          if (error) {
-            console.error(error.message);
-          } else {
-            console.log(row.id);
-          }
+        db.get(
+          "SELECT * FROM books WHERE title = ?",
+          "python",
+          "C言語",
+          function (error, row) {
+            if (error) {
+              console.error(error.message);
+            } else {
+              console.log(row.id);
+            }
 
-          db.run(
-            "insert into books(title) values(?)",
-            "java",
-            "swift",
-            (error) => {
-              if (error) {
-                console.error(error.message);
-              }
-
-              db.get(
-                "SELECT * FROM books WHERE title = ?",
-                "javascript",
-                "typescript",
-                (error, row) => {
-                  if (error) {
-                    console.error(error.message);
-                  } else {
-                    console.log(row.id);
-                  }
-
-                  db.each(
-                    "select * from posts",
-                    () => {},
-                    () => {
-                      db.run("drop table books");
-                    },
-                  );
-                },
-              );
-            },
-          );
-        },
-      );
-    });
+            db.run("drop table books");
+          },
+        );
+      },
+    );
   },
 );
