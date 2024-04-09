@@ -40,19 +40,15 @@ db.run(
       function (error) {
         if (error) {
           console.error(error.message);
-        } else {
-          console.log(this.lastID);
         }
 
         db.get(
           "SELECT * FROM books WHERE title = ?",
           "python",
           "C言語",
-          function (error, row) {
+          function (error) {
             if (error) {
               console.error(error.message);
-            } else {
-              console.log(row.id);
             }
 
             db.run("drop table books");
