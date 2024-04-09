@@ -1,3 +1,4 @@
+import timers from "timers/promises";
 // ESMでCommonJSモジュールをインポートするため
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
@@ -28,6 +29,7 @@ function getRow(db, query, params) {
   });
 }
 
+// エラー無し
 runQuery(db, "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   .then((result) => {
     console.log(result);
@@ -39,4 +41,24 @@ runQuery(db, "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   })
   .then((result) => {
     console.log(result);
+    db.run("drop table books");
+  });
+
+await timers.setTimeout(300);
+
+console.error("------------");
+
+// エラー有り
+runQuery(db, "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
+  .then((result) => {
+    console.log(result);
+    return runQuery(db, "insert into posts(title) values(?)", ["ruby"]);
+  })
+  .catch((result) => {
+    console.error(result);
+    return getRow(db, "SELECT * FROM posts WHERE title = ?", ["ruby"]);
+  })
+  .catch((result) => {
+    console.error(result);
+    db.run("drop table books");
   });
