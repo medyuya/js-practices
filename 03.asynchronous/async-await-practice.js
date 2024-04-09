@@ -58,8 +58,8 @@ try {
   );
   const insertResult = await runQuery(
     db,
-    "insert into posts(title) values(?)",
-    ["ruby"],
+    "insert into books(title) values(?)",
+    ["ruby", "ruby", "ruby"],
   );
   console.log(insertResult);
 } catch (error) {

@@ -50,7 +50,11 @@ console.error("------------");
 // エラー有り
 runQuery(db, "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   .then(() => {
-    return runQuery(db, "insert into posts(title) values(?)", ["ruby"]);
+    return runQuery(db, "insert into books(title) values(?)", [
+      "ruby",
+      "ruby",
+      "ruby",
+    ]);
   })
   .catch((result) => {
     console.error(result);
