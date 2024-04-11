@@ -1,14 +1,30 @@
+import fs from "fs";
+
 export default class Memo {
   constructor(text) {
-    this.firstLineContent = text.match(/^.+/m)[0];
-    this.fullContent = text;
+    const memo_storage_path = "./memos.json";
+    const new_memo = {
+      firstLineContent: text.match(/^.+/m)[0],
+      fullContent: text,
+    };
+
+    addDataToJsonFile(memo_storage_path, new_memo);
+  }
+}
+
+function addDataToJsonFile(path, newData) {
+  const jsonData = readJsonFile(path);
+
+  jsonData.push(newData);
+
+  fs.writeFileSync(path, JSON.stringify(jsonData), "utf8");
+}
+
+function readJsonFile(path) {
+  if (!fs.existsSync(path)) {
+    return [];
   }
 
-  firstLineContent() {
-    console.log(this.firstLineContent);
-  }
-
-  fullContent() {
-    console.log(this.fullContent);
-  }
+  const fileData = fs.readFileSync(path, "utf8");
+  return JSON.parse(fileData);
 }

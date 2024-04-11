@@ -33,10 +33,7 @@ function handleStandardInput() {
     let inputFullText = process.stdin.read();
 
     if (inputFullText !== null) {
-      console.log(inputFullText);
       const memo = new Memo(inputFullText);
-      console.log(memo.firstLineContent);
-      console.log(memo.fullContent);
     }
   });
 }
