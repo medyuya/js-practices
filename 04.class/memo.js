@@ -29,8 +29,6 @@ export default class Memo {
       fullContent: text,
     };
 
-    console.log(new_memo);
-
     addDataToJsonFile(Memo.memoStoragePath, new_memo);
   }
 
@@ -41,8 +39,6 @@ export default class Memo {
   }
 
   destroy() {
-    console.log(this.id);
-    console.log("-----");
     deleteDataToJsonFile(Memo.memoStoragePath, this.id);
   }
 }
@@ -57,8 +53,6 @@ function addDataToJsonFile(path, newData) {
 
 function deleteDataToJsonFile(path, id) {
   const jsonData = readJsonFile(path);
-
-  console.log(id);
 
   const deletedJsonData = jsonData.filter((memo) => {
     return memo.id !== id;

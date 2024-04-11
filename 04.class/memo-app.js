@@ -33,8 +33,6 @@ function handleOption(option) {
         const selectedMemo = await chooseOneMemoFromOptions(
           "Choose a note you want to delete:",
         );
-        console.log(selectedMemo);
-        console.log("-----");
         selectedMemo.destroy();
         console.log("削除しました");
       })();
