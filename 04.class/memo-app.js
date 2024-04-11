@@ -1,3 +1,5 @@
+import Memo from "./memo.js";
+
 const args = process.argv.slice(2);
 const option = args[0];
 
@@ -28,6 +30,7 @@ if (option) {
 
     if (inputFullText !== null) {
       console.log(inputFullText);
+      const memo = new Memo(inputFullText);
     }
   });
 }
