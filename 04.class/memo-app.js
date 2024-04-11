@@ -1,4 +1,5 @@
 import Memo from "./memo.js";
+import inquirer from "inquirer";
 
 const args = process.argv.slice(2);
 const option = args[0];
@@ -18,7 +19,7 @@ function handleOption(option) {
 
       break;
     case "-r":
-      console.log("選んだメモの全文を表示");
+      displayOneMemoFromOptions();
 
       break;
     case "-d":
@@ -35,7 +36,28 @@ function handleStandardInput() {
     let inputFullText = process.stdin.read();
 
     if (inputFullText !== null) {
-      new Memo(inputFullText);
+      Memo.create(inputFullText);
     }
   });
+}
+
+async function displayOneMemoFromOptions() {
+  let allMemosFirstLineContents = Memo.all().map((memo) => {
+    return memo.firstLineContent;
+  });
+
+  const memoOptions = [
+    {
+      type: "list",
+      name: "text",
+      message: "Choose a note you want to see:",
+      choices: allMemosFirstLineContents,
+    },
+  ];
+
+  const selectedContent = await inquirer.prompt(memoOptions);
+
+  const selectedMemo = Memo.selectByFirstLineContent(selectedContent.text);
+
+  console.log(selectedMemo);
 }

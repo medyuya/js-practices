@@ -7,7 +7,17 @@ export default class Memo {
     return readJsonFile(Memo.memoStoragePath);
   }
 
-  constructor(text) {
+  static selectByFirstLineContent(firstLineContent) {
+    const memos = readJsonFile(Memo.memoStoragePath);
+
+    const selectedMemo = memos.filter((memo) => {
+      return memo.firstLineContent === firstLineContent;
+    })[0];
+
+    return selectedMemo.fullContent;
+  }
+
+  static create(text) {
     const new_memo = {
       firstLineContent: text.match(/^.+/m)[0],
       fullContent: text,
