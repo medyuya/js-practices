@@ -58,8 +58,6 @@ function deleteDataToJsonFile(path, id) {
     return data.id !== id;
   });
 
-  console.log(deletedJsonData);
-
   fs.writeFileSync(path, JSON.stringify(deletedJsonData), "utf8");
 }
 
