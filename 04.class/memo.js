@@ -1,4 +1,5 @@
 import fs from "fs";
+import { v4 as uuidv4 } from "uuid";
 
 export default class Memo {
   static memoStoragePath = "./memos.json";
@@ -19,9 +20,12 @@ export default class Memo {
 
   static create(text) {
     const new_memo = {
+      id: uuidv4(),
       firstLineContent: text.match(/^.+/m)[0],
       fullContent: text,
     };
+
+    console.log(new_memo);
 
     addDataToJsonFile(Memo.memoStoragePath, new_memo);
   }
