@@ -33,6 +33,8 @@ function handleOption(option) {
         const selectedMemo = await chooseOneMemoFromOptions(
           "Choose a note you want to delete:",
         );
+        console.log(selectedMemo);
+        console.log("-----");
         selectedMemo.destroy();
         console.log("削除しました");
       })();
@@ -56,7 +58,7 @@ function handleStandardInput() {
 
 function allMemosFirstLineContents() {
   return Memo.all().map((memo) => {
-    return memo.firstLineContent;
+    return { name: memo.firstLineContent, value: memo.id };
   });
 }
 
@@ -64,7 +66,7 @@ async function chooseOneMemoFromOptions(displayText) {
   const memoOptions = [
     {
       type: "list",
-      name: "text",
+      name: "id",
       message: displayText,
       choices: allMemosFirstLineContents(),
     },
@@ -72,5 +74,5 @@ async function chooseOneMemoFromOptions(displayText) {
 
   const selectedContent = await inquirer.prompt(memoOptions);
 
-  return Memo.selectByFirstLineContent(selectedContent.text);
+  return Memo.selectByFirstLineContent(selectedContent.id);
 }

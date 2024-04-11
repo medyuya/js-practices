@@ -8,14 +8,18 @@ export default class Memo {
     return readJsonFile(Memo.memoStoragePath);
   }
 
-  static selectByFirstLineContent(firstLineContent) {
+  static selectByFirstLineContent(id) {
     const memos = readJsonFile(Memo.memoStoragePath);
 
     const selectedMemo = memos.filter((memo) => {
-      return memo.firstLineContent === firstLineContent;
+      return memo.id === id;
     })[0];
 
-    return new Memo(selectedMemo.firstLineContent, selectedMemo.fullContent);
+    return new Memo(
+      selectedMemo.id,
+      selectedMemo.firstLineContent,
+      selectedMemo.fullContent,
+    );
   }
 
   static create(text) {
@@ -30,13 +34,16 @@ export default class Memo {
     addDataToJsonFile(Memo.memoStoragePath, new_memo);
   }
 
-  constructor(firstLineContent, fullContent) {
+  constructor(id, firstLineContent, fullContent) {
+    this.id = id;
     this.firstLineContent = firstLineContent;
     this.fullContent = fullContent;
   }
 
   destroy() {
-    deleteDataToJsonFile(Memo.memoStoragePath, this.firstLineContent);
+    console.log(this.id);
+    console.log("-----");
+    deleteDataToJsonFile(Memo.memoStoragePath, this.id);
   }
 }
 
@@ -48,12 +55,16 @@ function addDataToJsonFile(path, newData) {
   fs.writeFileSync(path, JSON.stringify(jsonData), "utf8");
 }
 
-function deleteDataToJsonFile(path, firstLineContent) {
+function deleteDataToJsonFile(path, id) {
   const jsonData = readJsonFile(path);
 
+  console.log(id);
+
   const deletedJsonData = jsonData.filter((memo) => {
-    return memo.firstLineContent !== firstLineContent;
+    return memo.id !== id;
   });
+
+  console.log(deletedJsonData);
 
   fs.writeFileSync(path, JSON.stringify(deletedJsonData), "utf8");
 }
