@@ -18,14 +18,27 @@ function handleOption(option) {
       });
 
       break;
-    case "-r":
-      displayOneMemoFromOptions();
+    case "-r": {
+      (async () => {
+        const selectedMemo = await chooseOneMemoFromOptions(
+          "Choose a note you want to see:",
+        );
+        console.log(selectedMemo.fullContent);
+      })();
 
       break;
-    case "-d":
-      console.log("選んだメモが削除");
+    }
+    case "-d": {
+      (async () => {
+        const selectedMemo = await chooseOneMemoFromOptions(
+          "Choose a note you want to delete:",
+        );
+        selectedMemo.destroy();
+        console.log("削除しました");
+      })();
 
       break;
+    }
   }
 }
 
@@ -41,23 +54,23 @@ function handleStandardInput() {
   });
 }
 
-async function displayOneMemoFromOptions() {
-  let allMemosFirstLineContents = Memo.all().map((memo) => {
+function allMemosFirstLineContents() {
+  return Memo.all().map((memo) => {
     return memo.firstLineContent;
   });
+}
 
+async function chooseOneMemoFromOptions(displayText) {
   const memoOptions = [
     {
       type: "list",
       name: "text",
-      message: "Choose a note you want to see:",
-      choices: allMemosFirstLineContents,
+      message: displayText,
+      choices: allMemosFirstLineContents(),
     },
   ];
 
   const selectedContent = await inquirer.prompt(memoOptions);
 
-  const selectedMemo = Memo.selectByFirstLineContent(selectedContent.text);
-
-  console.log(selectedMemo);
+  return Memo.selectByFirstLineContent(selectedContent.text);
 }

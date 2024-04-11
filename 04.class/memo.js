@@ -14,7 +14,7 @@ export default class Memo {
       return memo.firstLineContent === firstLineContent;
     })[0];
 
-    return selectedMemo.fullContent;
+    return new Memo(selectedMemo.firstLineContent, selectedMemo.fullContent);
   }
 
   static create(text) {
@@ -25,6 +25,15 @@ export default class Memo {
 
     addDataToJsonFile(Memo.memoStoragePath, new_memo);
   }
+
+  constructor(firstLineContent, fullContent) {
+    this.firstLineContent = firstLineContent;
+    this.fullContent = fullContent;
+  }
+
+  destroy() {
+    deleteDataToJsonFile(Memo.memoStoragePath, this.firstLineContent);
+  }
 }
 
 function addDataToJsonFile(path, newData) {
@@ -33,6 +42,16 @@ function addDataToJsonFile(path, newData) {
   jsonData.push(newData);
 
   fs.writeFileSync(path, JSON.stringify(jsonData), "utf8");
+}
+
+function deleteDataToJsonFile(path, firstLineContent) {
+  const jsonData = readJsonFile(path);
+
+  const deletedJsonData = jsonData.filter((memo) => {
+    return memo.firstLineContent !== firstLineContent;
+  });
+
+  fs.writeFileSync(path, JSON.stringify(deletedJsonData), "utf8");
 }
 
 function readJsonFile(path) {
