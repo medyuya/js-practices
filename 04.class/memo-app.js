@@ -20,4 +20,14 @@ function handleOption(option) {
 
 if (option) {
   handleOption(option);
+} else {
+  process.stdin.setEncoding("utf8");
+
+  process.stdin.on("readable", () => {
+    let inputFullText = process.stdin.read();
+
+    if (inputFullText !== null) {
+      console.log(inputFullText);
+    }
+  });
 }
