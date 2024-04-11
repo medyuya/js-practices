@@ -12,7 +12,9 @@ if (option) {
 function handleOption(option) {
   switch (option) {
     case "-l":
-      console.log("メモの最初の行のみを表示");
+      Memo.all().forEach((memo) => {
+        console.log(memo.firstLineContent);
+      });
 
       break;
     case "-r":

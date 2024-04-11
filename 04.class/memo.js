@@ -1,14 +1,19 @@
 import fs from "fs";
 
 export default class Memo {
+  static memoStoragePath = "./memos.json";
+
+  static all() {
+    return readJsonFile(Memo.memoStoragePath);
+  }
+
   constructor(text) {
-    const memo_storage_path = "./memos.json";
     const new_memo = {
       firstLineContent: text.match(/^.+/m)[0],
       fullContent: text,
     };
 
-    addDataToJsonFile(memo_storage_path, new_memo);
+    addDataToJsonFile(Memo.memoStoragePath, new_memo);
   }
 }
 
