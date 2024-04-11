@@ -2,16 +2,32 @@ import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 
 export default class Memo {
-  static memoStoragePath = "./memos.json";
+  static storagePath = "./memos.json";
 
-  static all() {
-    return readJsonFile(Memo.memoStoragePath);
+  constructor(id, firstLineContent, fullContent) {
+    this.id = id;
+    this.firstLineContent = firstLineContent;
+    this.fullContent = fullContent;
   }
 
-  static selectByFirstLineContent(id) {
-    const memos = readJsonFile(Memo.memoStoragePath);
+  static create(inputFullText) {
+    const new_memo = {
+      id: uuidv4(),
+      firstLineContent: inputFullText.match(/^.+/m)[0],
+      fullContent: inputFullText,
+    };
 
-    const selectedMemo = memos.filter((memo) => {
+    addDataToJsonFile(Memo.storagePath, new_memo);
+  }
+
+  static all() {
+    return readJsonFile(Memo.storagePath);
+  }
+
+  static selectById(id) {
+    const storedMemos = readJsonFile(Memo.storagePath);
+
+    const selectedMemo = storedMemos.filter((memo) => {
       return memo.id === id;
     })[0];
 
@@ -22,24 +38,8 @@ export default class Memo {
     );
   }
 
-  static create(text) {
-    const new_memo = {
-      id: uuidv4(),
-      firstLineContent: text.match(/^.+/m)[0],
-      fullContent: text,
-    };
-
-    addDataToJsonFile(Memo.memoStoragePath, new_memo);
-  }
-
-  constructor(id, firstLineContent, fullContent) {
-    this.id = id;
-    this.firstLineContent = firstLineContent;
-    this.fullContent = fullContent;
-  }
-
   destroy() {
-    deleteDataToJsonFile(Memo.memoStoragePath, this.id);
+    deleteDataToJsonFile(Memo.storagePath, this.id);
   }
 }
 
@@ -54,8 +54,8 @@ function addDataToJsonFile(path, newData) {
 function deleteDataToJsonFile(path, id) {
   const jsonData = readJsonFile(path);
 
-  const deletedJsonData = jsonData.filter((memo) => {
-    return memo.id !== id;
+  const deletedJsonData = jsonData.filter((data) => {
+    return data.id !== id;
   });
 
   console.log(deletedJsonData);

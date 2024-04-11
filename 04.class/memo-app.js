@@ -70,7 +70,7 @@ async function chooseOneMemoFromOptions(displayText) {
     },
   ];
 
-  const selectedContent = await inquirer.prompt(memoOptions);
+  const selectedOption = await inquirer.prompt(memoOptions);
 
-  return Memo.selectByFirstLineContent(selectedContent.id);
+  return Memo.selectById(selectedOption.id);
 }
