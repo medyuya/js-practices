@@ -3,6 +3,12 @@ import Memo from "./memo.js";
 const args = process.argv.slice(2);
 const option = args[0];
 
+if (option) {
+  handleOption(option);
+} else {
+  handleStandardInput();
+}
+
 function handleOption(option) {
   switch (option) {
     case "-l":
@@ -20,9 +26,7 @@ function handleOption(option) {
   }
 }
 
-if (option) {
-  handleOption(option);
-} else {
+function handleStandardInput() {
   process.stdin.setEncoding("utf8");
 
   process.stdin.on("readable", () => {
