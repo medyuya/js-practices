@@ -13,6 +13,7 @@
     "inquirer": "^9.2.17",
     "promises": "^0.2.5",
     "readline": "^1.3.0",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "uuid": "^9.0.1"
   }
 }
