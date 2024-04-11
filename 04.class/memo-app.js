@@ -31,6 +31,8 @@ if (option) {
     if (inputFullText !== null) {
       console.log(inputFullText);
       const memo = new Memo(inputFullText);
+      console.log(memo.firstLineContent);
+      console.log(memo.fullContent);
     }
   });
 }

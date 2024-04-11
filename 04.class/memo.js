@@ -3,4 +3,12 @@ export default class Memo {
     this.firstLineContent = text.match(/^.+/m)[0];
     this.fullContent = text;
   }
+
+  firstLineContent() {
+    console.log(this.firstLineContent);
+  }
+
+  fullContent() {
+    console.log(this.fullContent);
+  }
 }
