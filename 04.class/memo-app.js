@@ -5,12 +5,12 @@ const args = process.argv.slice(2);
 const option = args[0];
 
 if (option) {
-  handleOption(option);
+  handleOptionInput(option);
 } else {
   handleStandardInput();
 }
 
-function handleOption(option) {
+function handleOptionInput(option) {
   switch (option) {
     case "-l":
       Memo.all().forEach((memo) => {
@@ -54,7 +54,7 @@ function handleStandardInput() {
   });
 }
 
-function allMemosFirstLineContents() {
+function allMemosFirstLineContentsWithId() {
   return Memo.all().map((memo) => {
     return { name: memo.firstLineContent, value: memo.id };
   });
@@ -66,11 +66,11 @@ async function chooseOneMemoFromOptions(displayText) {
       type: "list",
       name: "id",
       message: displayText,
-      choices: allMemosFirstLineContents(),
+      choices: allMemosFirstLineContentsWithId(),
     },
   ];
 
-  const selectedOption = await inquirer.prompt(memoOptions);
+  const selectedMemo = await inquirer.prompt(memoOptions);
 
-  return Memo.selectById(selectedOption.id);
+  return Memo.selectById(selectedMemo.id);
 }
