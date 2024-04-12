@@ -26,7 +26,11 @@ export default class Memo {
   }
 
   static all() {
-    return readJsonFile(Memo.storagePath);
+    const storedMemos = readJsonFile(Memo.storagePath);
+
+    return storedMemos.map(function (memo) {
+      return new Memo(memo.id, memo.firstLineContent, memo.fullContent);
+    });
   }
 
   static selectById(id) {
