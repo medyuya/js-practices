@@ -1,8 +1,5 @@
 import { endOfMonth, format, getDay, isSaturday } from "date-fns";
-// ESMでCommonJSモジュールをインポートするため
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-const minimist = require("minimist");
+import minimist from "minimist";
 
 const args = minimist(process.argv.slice(2));
 
