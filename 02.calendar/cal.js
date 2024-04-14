@@ -24,7 +24,7 @@ for (let i = 1; i <= lastDayOfMonth; i++) {
 
   isFoldedDayOfWeek = isSaturday(new Date(targetYear, targetMonth - 1, i));
 
-  if (isFoldedDayOfWeek || i == lastDayOfMonth) {
+  if (isFoldedDayOfWeek || i === lastDayOfMonth) {
     console.log(firstWeekBlankText);
     firstWeekBlankText = "";
   }
