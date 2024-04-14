@@ -15,18 +15,17 @@ console.log("Su Mo Tu We Th Fr Sa");
 
 const lastDayOfMonth = endOfMonth(targetDate).getDate();
 
-const firstWeekBlankText = "   ".repeat(getDay(targetDate));
+let firstWeekBlankText = "   ".repeat(getDay(targetDate));
 
-let weekColumnText = firstWeekBlankText;
 let isFoldedDayOfWeek;
 for (let i = 1; i <= lastDayOfMonth; i++) {
-  if (i.toString().length < 2) weekColumnText += " ";
-  weekColumnText += i.toString() + " ";
+  if (i.toString().length < 2) firstWeekBlankText += " ";
+  firstWeekBlankText += i.toString() + " ";
 
   isFoldedDayOfWeek = isSaturday(new Date(targetYear, targetMonth - 1, i));
 
   if (isFoldedDayOfWeek || i == lastDayOfMonth) {
-    console.log(weekColumnText);
-    weekColumnText = "";
+    console.log(firstWeekBlankText);
+    firstWeekBlankText = "";
   }
 }
