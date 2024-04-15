@@ -1,8 +1,5 @@
 import timers from "timers/promises";
-// ESMでCommonJSモジュールをインポートするため
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-const sqlite3 = require("sqlite3");
+import sqlite3 from "sqlite3";
 const db = new sqlite3.Database(":memory:");
 
 // エラー無し
