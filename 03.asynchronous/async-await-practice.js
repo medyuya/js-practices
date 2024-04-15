@@ -35,12 +35,12 @@ await runQuery(
   "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
 );
 
-let insertResult = await runQuery(db, "INSERT INTO books(title) VALUES(?)", [
+const insertResult = await runQuery(db, "INSERT INTO books(title) VALUES(?)", [
   "ruby",
 ]);
 console.log(insertResult);
 
-let getResult = await getRow(db, "SELECT * FROM books WHERE title = ?", [
+const getResult = await getRow(db, "SELECT * FROM books WHERE title = ?", [
   "ruby",
 ]);
 console.log(getResult);
