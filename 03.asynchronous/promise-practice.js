@@ -9,9 +9,9 @@ function runQuery(db, query, params) {
   return new Promise(function (resolve, reject) {
     db.run(query, params, function (error) {
       if (error) {
-        reject(error.message);
+        reject(error);
       } else {
-        resolve(this.lastID);
+        resolve();
       }
     });
   });
@@ -21,9 +21,9 @@ function getRow(db, query, params) {
   return new Promise(function (resolve, reject) {
     db.get(query, params, function (error, row) {
       if (error) {
-        reject(error.message);
+        reject(error);
       } else {
-        resolve(row.id);
+        resolve(row);
       }
     });
   });
@@ -32,12 +32,9 @@ function getRow(db, query, params) {
 // エラー無し
 runQuery(db, "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   .then(() => runQuery(db, "INSERT INTO books(title) VALUES(?)", ["ruby"]))
-  .then((registeredBookId) => {
-    console.log(registeredBookId);
-    return getRow(db, "SELECT * FROM books WHERE title = ?", ["ruby"]);
-  })
-  .then((selectedBookId) => {
-    console.log(selectedBookId);
+  .then(() => getRow(db, "SELECT * FROM books WHERE title = ?", ["ruby"]))
+  .then((selectedRow) => {
+    console.log(selectedRow.id);
     db.run("DROP TABLE books");
   });
 
@@ -54,11 +51,11 @@ runQuery(db, "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
       "ruby",
     ]);
   })
-  .catch((errorMessage) => {
-    console.error(errorMessage);
+  .catch((error) => {
+    console.error(error.message);
     return getRow(db, "SELECT * FROM posts WHERE title = ?", ["ruby"]);
   })
-  .catch((errorMessage) => {
-    console.error(errorMessage);
+  .catch((error) => {
+    console.error(error.message);
     db.run("DROP TABLE books");
   });

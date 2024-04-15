@@ -9,9 +9,9 @@ async function runQuery(db, query, params) {
   return new Promise(function (resolve, reject) {
     db.run(query, params, function (error) {
       if (error) {
-        reject(error.message);
+        reject(error);
       } else {
-        resolve(this.lastID);
+        resolve();
       }
     });
   });
@@ -21,9 +21,9 @@ async function getRow(db, query, params) {
   return new Promise(function (resolve, reject) {
     db.get(query, params, function (error, row) {
       if (error) {
-        reject(error.message);
+        reject(error);
       } else {
-        resolve(row.id);
+        resolve(row);
       }
     });
   });
@@ -35,17 +35,12 @@ await runQuery(
   "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
 );
 
-const registeredBookId = await runQuery(
-  db,
-  "INSERT INTO books(title) VALUES(?)",
-  ["ruby"],
-);
-console.log(registeredBookId);
+await runQuery(db, "INSERT INTO books(title) VALUES(?)", ["ruby"]);
 
-const selectedBookId = await getRow(db, "SELECT * FROM books WHERE title = ?", [
+const selectedRow = await getRow(db, "SELECT * FROM books WHERE title = ?", [
   "ruby",
 ]);
-console.log(selectedBookId);
+console.log(selectedRow.id);
 
 await db.run("DROP TABLE books");
 
@@ -64,12 +59,12 @@ try {
     "ruby",
     "ruby",
   ]);
-} catch (errorMessage) {
-  console.error(errorMessage);
+} catch (error) {
+  console.error(error.message);
   try {
     await getRow(db, "SELECT * FROM posts WHERE title = ?", ["ruby"]);
-  } catch (errorMessage) {
-    console.error(errorMessage);
+  } catch (error) {
+    console.error(error.message);
     db.run("DROP TABLE books");
   }
 }
