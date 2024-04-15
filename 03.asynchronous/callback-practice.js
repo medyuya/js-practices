@@ -33,17 +33,13 @@ db.run(
       "INSERT INTO books(title) VALUES(?)",
       ["ruby", "ruby", "ruby"],
       function (error) {
-        if (error) {
-          console.error(error.message);
-        }
+        console.error(error.message);
 
         db.get(
           "SELECT * FROM posts WHERE title = ?",
           ["ruby"],
           function (error) {
-            if (error) {
-              console.error(error.message);
-            }
+            console.error(error.message);
 
             db.run("DROP TABLE books");
           },
