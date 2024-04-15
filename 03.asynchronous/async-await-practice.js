@@ -35,15 +35,17 @@ await runQuery(
   "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
 );
 
-const insertResult = await runQuery(db, "INSERT INTO books(title) VALUES(?)", [
-  "ruby",
-]);
-console.log(insertResult);
+const registeredBookId = await runQuery(
+  db,
+  "INSERT INTO books(title) VALUES(?)",
+  ["ruby"],
+);
+console.log(registeredBookId);
 
-const getResult = await getRow(db, "SELECT * FROM books WHERE title = ?", [
+const selectedBookId = await getRow(db, "SELECT * FROM books WHERE title = ?", [
   "ruby",
 ]);
-console.log(getResult);
+console.log(selectedBookId);
 db.run("DROP TABLE books");
 
 await timers.setTimeout(300);
@@ -56,21 +58,17 @@ try {
     db,
     "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
   );
-  const insertResult = await runQuery(
-    db,
-    "INSERT INTO books(title) VALUES(?)",
-    ["ruby", "ruby", "ruby"],
-  );
-  console.log(insertResult);
-} catch (error) {
-  console.error(error);
+  await runQuery(db, "INSERT INTO books(title) VALUES(?)", [
+    "ruby",
+    "ruby",
+    "ruby",
+  ]);
+} catch (errorMessage) {
+  console.error(errorMessage);
   try {
-    const row = await getRow(db, "SELECT * FROM posts WHERE title = ?", [
-      "ruby",
-    ]);
-    console.log(row.id);
-  } catch (error) {
-    console.error(error);
+    await getRow(db, "SELECT * FROM posts WHERE title = ?", ["ruby"]);
+  } catch (errorMessage) {
+    console.error(errorMessage);
     db.run("DROP TABLE books");
   }
 }

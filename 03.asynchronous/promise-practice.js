@@ -32,12 +32,12 @@ function getRow(db, query, params) {
 // エラー無し
 runQuery(db, "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   .then(() => runQuery(db, "INSERT INTO books(title) VALUES(?)", ["ruby"]))
-  .then((result) => {
-    console.log(result);
+  .then((registeredBookId) => {
+    console.log(registeredBookId);
     return getRow(db, "SELECT * FROM books WHERE title = ?", ["ruby"]);
   })
-  .then((result) => {
-    console.log(result);
+  .then((selectedBookId) => {
+    console.log(selectedBookId);
     db.run("DROP TABLE books");
   });
 
@@ -54,11 +54,11 @@ runQuery(db, "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
       "ruby",
     ]);
   })
-  .catch((result) => {
-    console.error(result);
+  .catch((errorMessage) => {
+    console.error(errorMessage);
     return getRow(db, "SELECT * FROM posts WHERE title = ?", ["ruby"]);
   })
-  .catch((result) => {
-    console.error(result);
+  .catch((errorMessage) => {
+    console.error(errorMessage);
     db.run("DROP TABLE books");
   });
