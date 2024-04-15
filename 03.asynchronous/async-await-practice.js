@@ -46,7 +46,7 @@ db.run("drop table books");
 
 await timers.setTimeout(300);
 
-console.error("------------");
+console.log("------------");
 
 // エラー有り
 try {

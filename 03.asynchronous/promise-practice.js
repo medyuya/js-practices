@@ -43,7 +43,7 @@ runQuery(db, "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
 
 await timers.setTimeout(300);
 
-console.error("------------");
+console.log("------------");
 
 // エラー有り
 runQuery(db, "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")

@@ -25,7 +25,7 @@ db.run(
 
 await timers.setTimeout(300);
 
-console.error("------------");
+console.log("------------");
 
 // エラー有り
 db.run(
