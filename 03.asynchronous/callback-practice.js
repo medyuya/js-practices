@@ -5,9 +5,9 @@ const db = new sqlite3.Database(":memory:");
 
 // エラー無し
 db.run(
-  "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
+  "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
   () => {
-    db.run("insert into books(title) values(?)", "ruby", function () {
+    db.run("INSERT INTO books(title) VALUES(?)", "ruby", function () {
       console.log(this.lastID);
 
       db.get(
@@ -16,7 +16,7 @@ db.run(
         function (error, row) {
           console.log(row.id);
 
-          db.run("drop table books");
+          db.run("DROP TABLE books");
         },
       );
     });
@@ -29,10 +29,10 @@ console.log("------------");
 
 // エラー有り
 db.run(
-  "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
+  "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
   () => {
     db.run(
-      "insert into books(title) values(?)",
+      "INSERT INTO books(title) VALUES(?)",
       ["ruby", "ruby", "ruby"],
       function (error) {
         if (error) {
@@ -47,7 +47,7 @@ db.run(
               console.error(error.message);
             }
 
-            db.run("drop table books");
+            db.run("DROP TABLE books");
           },
         );
       },

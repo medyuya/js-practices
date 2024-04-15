@@ -30,10 +30,10 @@ async function getRow(db, query, params) {
 // エラー無し
 await runQuery(
   db,
-  "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
+  "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
 );
 
-let insertResult = await runQuery(db, "insert into books(title) values(?)", [
+let insertResult = await runQuery(db, "INSERT INTO books(title) VALUES(?)", [
   "ruby",
 ]);
 console.log(insertResult);
@@ -42,7 +42,7 @@ let getResult = await getRow(db, "SELECT * FROM books WHERE title = ?", [
   "ruby",
 ]);
 console.log(getResult);
-db.run("drop table books");
+db.run("DROP TABLE books");
 
 await timers.setTimeout(300);
 
@@ -52,11 +52,11 @@ console.log("------------");
 try {
   await runQuery(
     db,
-    "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
+    "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
   );
   const insertResult = await runQuery(
     db,
-    "insert into books(title) values(?)",
+    "INSERT INTO books(title) VALUES(?)",
     ["ruby", "ruby", "ruby"],
   );
   console.log(insertResult);
@@ -69,6 +69,6 @@ try {
     console.log(row.id);
   } catch (error) {
     console.error(error);
-    db.run("drop table books");
+    db.run("DROP TABLE books");
   }
 }

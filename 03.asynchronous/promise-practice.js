@@ -28,9 +28,9 @@ function getRow(db, query, params) {
 }
 
 // エラー無し
-runQuery(db, "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
+runQuery(db, "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   .then(() => {
-    return runQuery(db, "insert into books(title) values(?)", ["ruby"]);
+    return runQuery(db, "INSERT INTO books(title) VALUES(?)", ["ruby"]);
   })
   .then((result) => {
     console.log(result);
@@ -38,7 +38,7 @@ runQuery(db, "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   })
   .then((result) => {
     console.log(result);
-    db.run("drop table books");
+    db.run("DROP TABLE books");
   });
 
 await timers.setTimeout(300);
@@ -46,9 +46,9 @@ await timers.setTimeout(300);
 console.log("------------");
 
 // エラー有り
-runQuery(db, "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
+runQuery(db, "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   .then(() => {
-    return runQuery(db, "insert into books(title) values(?)", [
+    return runQuery(db, "INSERT INTO books(title) VALUES(?)", [
       "ruby",
       "ruby",
       "ruby",
@@ -60,5 +60,5 @@ runQuery(db, "create table books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   })
   .catch((result) => {
     console.error(result);
-    db.run("drop table books");
+    db.run("DROP TABLE books");
   });
