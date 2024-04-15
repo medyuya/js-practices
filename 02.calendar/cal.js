@@ -13,19 +13,19 @@ const startDate = new Date(targetYear, targetMonth - 1, 1);
 const targetMonthName = format(startDate, "MMMM");
 
 let monthYearTitle = `${targetMonthName} ${targetYear}`;
-let totalColumnLength = 20;
+let totalRowLength = 20;
 
 let startPosition =
-  Math.floor((totalColumnLength - monthYearTitle.length) / 2) +
+  Math.floor((totalRowLength - monthYearTitle.length) / 2) +
   monthYearTitle.length;
 let centeredMonthYearTitle = monthYearTitle
   .padStart(startPosition)
-  .padEnd(totalColumnLength);
+  .padEnd(totalRowLength);
 
 console.log(centeredMonthYearTitle);
 console.log("Su Mo Tu We Th Fr Sa");
 
-let weekColumnText = "   ".repeat(getDay(startDate));
+let weekRowText = "   ".repeat(getDay(startDate));
 
 const endDate = new Date(targetYear, targetMonth, 0);
 
@@ -37,13 +37,13 @@ for (
   let day = date.getDate();
 
   if (day.toString().length < 2) {
-    weekColumnText += " ";
+    weekRowText += " ";
   }
 
-  weekColumnText += `${day}${isSaturday(date) ? "" : " "}`;
+  weekRowText += `${day}${isSaturday(date) ? "" : " "}`;
 
   if (isSaturday(date) || date.getDate() === endDate.getDate()) {
-    console.log(weekColumnText);
-    weekColumnText = "";
+    console.log(weekRowText);
+    weekRowText = "";
   }
 }
