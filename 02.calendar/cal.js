@@ -22,7 +22,7 @@ for (let i = 1; i <= lastDayOfMonth; i++) {
   if (i.toString().length < 2) {
     weekColumnText += " ";
   }
-  weekColumnText += i.toString() + " ";
+  weekColumnText += `${i} `;
 
   isFoldedDayOfWeek = isSaturday(new Date(targetYear, targetMonth - 1, i));
 
