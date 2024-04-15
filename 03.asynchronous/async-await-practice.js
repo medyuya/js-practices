@@ -49,11 +49,13 @@ await timers.setTimeout(300);
 console.log("------------");
 
 // エラー有り
+
+await runQuery(
+  db,
+  "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
+);
+
 try {
-  await runQuery(
-    db,
-    "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
-  );
   await runQuery(db, "INSERT INTO books(title) VALUES(?)", [
     "ruby",
     "ruby",
@@ -65,6 +67,7 @@ try {
     await getRow(db, "SELECT * FROM posts WHERE title = ?", ["ruby"]);
   } catch (error) {
     console.error(error.message);
-    db.run("DROP TABLE books");
   }
 }
+
+await db.run("DROP TABLE books");
