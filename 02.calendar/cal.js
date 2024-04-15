@@ -12,7 +12,17 @@ const startDate = new Date(targetYear, targetMonth - 1, 1);
 
 const targetMonthName = format(startDate, "MMMM");
 
-console.log(`     ${targetMonthName} ${targetYear}`);
+let monthYearTitle = `${targetMonthName} ${targetYear}`;
+let totalColumnLength = 20;
+
+let startPosition =
+  Math.floor((totalColumnLength - monthYearTitle.length) / 2) +
+  monthYearTitle.length;
+let centeredMonthYearTitle = monthYearTitle
+  .padStart(startPosition)
+  .padEnd(totalColumnLength);
+
+console.log(centeredMonthYearTitle);
 console.log("Su Mo Tu We Th Fr Sa");
 
 let weekColumnText = "   ".repeat(getDay(startDate));
