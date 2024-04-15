@@ -1,4 +1,4 @@
-import { endOfMonth, format, getDay, isSaturday } from "date-fns";
+import { format, getDay, isSaturday } from "date-fns";
 import minimist from "minimist";
 
 const args = minimist(process.argv.slice(2));
@@ -13,20 +13,25 @@ const targetMonthName = format(targetDate, "MMMM");
 console.log(`     ${targetMonthName} ${targetYear}`);
 console.log("Su Mo Tu We Th Fr Sa");
 
-const lastDayOfMonth = endOfMonth(targetDate).getDate();
-
 let weekColumnText = "   ".repeat(getDay(targetDate));
 
-let isFoldedDayOfWeek;
-for (let i = 1; i <= lastDayOfMonth; i++) {
-  if (i.toString().length < 2) {
+const startDate = new Date(targetYear, targetMonth - 1, 1);
+const endDate = new Date(targetYear, targetMonth, 0);
+
+for (
+  let date = new Date(startDate);
+  date <= endDate;
+  date.setDate(date.getDate() + 1)
+) {
+  let day = date.getDate();
+
+  if (day.toString().length < 2) {
     weekColumnText += " ";
   }
-  weekColumnText += `${i} `;
 
-  isFoldedDayOfWeek = isSaturday(new Date(targetYear, targetMonth - 1, i));
+  weekColumnText += `${day} `;
 
-  if (isFoldedDayOfWeek || i === lastDayOfMonth) {
+  if (isSaturday(date) || date.getDate() === endDate.getDate()) {
     console.log(weekColumnText);
     weekColumnText = "";
   }
