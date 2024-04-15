@@ -6,7 +6,7 @@ import sqlite3 from "sqlite3";
 const db = new sqlite3.Database(":memory:");
 
 async function runQuery(db, query, params) {
-  return await new Promise(function (resolve, reject) {
+  return new Promise(function (resolve, reject) {
     db.run(query, params, function (error) {
       if (error) {
         reject(error.message);
@@ -18,7 +18,7 @@ async function runQuery(db, query, params) {
 }
 
 async function getRow(db, query, params) {
-  return await new Promise(function (resolve, reject) {
+  return new Promise(function (resolve, reject) {
     db.get(query, params, function (error, row) {
       if (error) {
         reject(error.message);
