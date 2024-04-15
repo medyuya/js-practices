@@ -31,9 +31,7 @@ function getRow(db, query, params) {
 
 // エラー無し
 runQuery(db, "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
-  .then(() => {
-    return runQuery(db, "INSERT INTO books(title) VALUES(?)", ["ruby"]);
-  })
+  .then(() => runQuery(db, "INSERT INTO books(title) VALUES(?)", ["ruby"]))
   .then((result) => {
     console.log(result);
     return getRow(db, "SELECT * FROM books WHERE title = ?", ["ruby"]);
