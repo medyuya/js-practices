@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { format, getDay, isSaturday } from "date-fns";
 import minimist from "minimist";
 
