@@ -29,7 +29,7 @@ for (
     weekColumnText += " ";
   }
 
-  weekColumnText += `${day} `;
+  weekColumnText += `${day}${isSaturday(date) ? "" : " "}`;
 
   if (isSaturday(date) || date.getDate() === endDate.getDate()) {
     console.log(weekColumnText);
