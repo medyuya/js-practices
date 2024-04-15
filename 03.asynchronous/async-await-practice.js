@@ -46,7 +46,8 @@ const selectedBookId = await getRow(db, "SELECT * FROM books WHERE title = ?", [
   "ruby",
 ]);
 console.log(selectedBookId);
-db.run("DROP TABLE books");
+
+await db.run("DROP TABLE books");
 
 await timers.setTimeout(300);
 
