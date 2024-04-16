@@ -14,13 +14,13 @@ const startDate = new Date(targetYear, targetMonth - 1, 1);
 
 const targetMonthName = format(startDate, "MMMM");
 
-let monthYearTitle = `${targetMonthName} ${targetYear}`;
-let totalRowLength = 20;
+const monthYearTitle = `${targetMonthName} ${targetYear}`;
+const totalRowLength = 20;
 
-let startPosition =
+const startPosition =
   Math.floor((totalRowLength - monthYearTitle.length) / 2) +
   monthYearTitle.length;
-let centeredMonthYearTitle = monthYearTitle
+const centeredMonthYearTitle = monthYearTitle
   .padStart(startPosition)
   .padEnd(totalRowLength);
 
