@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
-import { format, getDay, isSaturday } from "date-fns";
+import format from "date-fns/format";
+import getDay from "date-fns/getDay";
+import isSaturday from "date-fns/isSaturday";
 import minimist from "minimist";
 
 const args = minimist(process.argv.slice(2));
