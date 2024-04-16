@@ -37,10 +37,8 @@ await runQuery(
 
 await runQuery(db, "INSERT INTO books(title) VALUES(?)", ["ruby"]);
 
-const selectedRow = await getRow(db, "SELECT * FROM books WHERE title = ?", [
-  "ruby",
-]);
-console.log(selectedRow.id);
+const row = await getRow(db, "SELECT * FROM books WHERE title = ?", ["ruby"]);
+console.log(row.id);
 
 await db.run("DROP TABLE books");
 

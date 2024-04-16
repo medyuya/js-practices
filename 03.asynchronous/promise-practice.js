@@ -33,8 +33,8 @@ function getRow(db, query, params) {
 runQuery(db, "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   .then(() => runQuery(db, "INSERT INTO books(title) VALUES(?)", ["ruby"]))
   .then(() => getRow(db, "SELECT * FROM books WHERE title = ?", ["ruby"]))
-  .then((selectedRow) => {
-    console.log(selectedRow.id);
+  .then((row) => {
+    console.log(row.id);
     db.run("DROP TABLE books");
   });
 
