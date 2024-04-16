@@ -17,10 +17,12 @@ const targetMonthName = format(startDate, "MMMM");
 const monthYearTitle = `${targetMonthName} ${targetYear}`;
 const TOTAL_ROW_LENGTH = 20;
 
-const startPosition = Math.floor(
+const titleStartPosition = Math.floor(
   (TOTAL_ROW_LENGTH - monthYearTitle.length) / 2,
 );
-const centeredMonthYearTitle = `${" ".repeat(startPosition)}${monthYearTitle}`;
+const centeredMonthYearTitle = `${" ".repeat(
+  titleStartPosition,
+)}${monthYearTitle}`;
 
 console.log(centeredMonthYearTitle);
 console.log("Su Mo Tu We Th Fr Sa");
