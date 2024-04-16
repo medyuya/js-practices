@@ -15,9 +15,11 @@ const startDate = new Date(targetYear, targetMonth - 1, 1);
 const targetMonthName = format(startDate, "MMMM");
 
 const monthYearTitle = `${targetMonthName} ${targetYear}`;
-const totalRowLength = 20;
+const TOTAL_ROW_LENGTH = 20;
 
-const startPosition = Math.floor((totalRowLength - monthYearTitle.length) / 2);
+const startPosition = Math.floor(
+  (TOTAL_ROW_LENGTH - monthYearTitle.length) / 2,
+);
 const centeredMonthYearTitle = `${" ".repeat(startPosition)}${monthYearTitle}`;
 
 console.log(centeredMonthYearTitle);
