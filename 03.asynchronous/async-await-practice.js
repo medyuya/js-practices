@@ -40,7 +40,7 @@ await runQuery(db, "INSERT INTO books(title) VALUES(?)", ["ruby"]);
 const row = await getRow(db, "SELECT * FROM books WHERE title = ?", ["ruby"]);
 console.log(row.id);
 
-await db.run("DROP TABLE books");
+await runQuery(db, "DROP TABLE books");
 
 await timers.setTimeout(300);
 
@@ -64,15 +64,16 @@ try {
   } else {
     throw error;
   }
-  try {
-    await getRow(db, "SELECT * FROM posts WHERE title = ?", ["ruby"]);
-  } catch (error) {
-    if (error.message.includes("SQLITE_ERROR")) {
-      console.error(error.message);
-    } else {
-      throw error;
-    }
+}
+
+try {
+  await getRow(db, "SELECT * FROM posts WHERE title = ?", ["ruby"]);
+} catch (error) {
+  if (error.message.includes("SQLITE_ERROR")) {
+    console.error(error.message);
+  } else {
+    throw error;
   }
 }
 
-await db.run("DROP TABLE books");
+await runQuery(db, "DROP TABLE books");

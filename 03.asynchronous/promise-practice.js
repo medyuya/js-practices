@@ -35,7 +35,7 @@ runQuery(db, "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   .then(() => getRow(db, "SELECT * FROM books WHERE title = ?", ["ruby"]))
   .then((row) => {
     console.log(row.id);
-    db.run("DROP TABLE books");
+    return runQuery(db, "DROP TABLE books");
   });
 
 await timers.setTimeout(300);
@@ -57,5 +57,5 @@ runQuery(db, "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   })
   .catch((error) => {
     console.error(error.message);
-    db.run("DROP TABLE books");
+    return runQuery(db, "DROP TABLE books");
   });
