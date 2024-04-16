@@ -14,15 +14,9 @@ const startDate = new Date(targetYear, targetMonth - 1, 1);
 
 const targetMonthName = format(startDate, "MMMM");
 
-const monthYearTitle = `${targetMonthName} ${targetYear}`;
 const TOTAL_ROW_LENGTH = 20;
-
-const titleStartPosition = Math.floor(
-  (TOTAL_ROW_LENGTH - monthYearTitle.length) / 2,
-);
-const centeredMonthYearTitle = `${" ".repeat(
-  titleStartPosition,
-)}${monthYearTitle}`;
+const monthYearTitle = `${targetMonthName} ${targetYear}`;
+const centeredMonthYearTitle = centralizeText(TOTAL_ROW_LENGTH, monthYearTitle);
 
 console.log(centeredMonthYearTitle);
 console.log("Su Mo Tu We Th Fr Sa");
@@ -48,6 +42,11 @@ for (
     console.log(weekRowText);
     weekRowText = "";
   }
+}
+
+function centralizeText(rowLength, text) {
+  const startPosition = Math.floor((rowLength - text.length) / 2);
+  return `${" ".repeat(startPosition)}${text}`;
 }
 
 function addSpaceExceptForLineEnd(date) {
