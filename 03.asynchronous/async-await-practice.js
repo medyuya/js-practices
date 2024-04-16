@@ -59,7 +59,7 @@ try {
     "ruby",
   ]);
 } catch (error) {
-  if (error.message.includes("SQLITE_RANGE")) {
+  if (error && error.message && error.message.includes("SQLITE_RANGE")) {
     console.error(error.message);
   } else {
     throw error;
@@ -69,7 +69,7 @@ try {
 try {
   await getRow(db, "SELECT * FROM posts WHERE title = ?", ["ruby"]);
 } catch (error) {
-  if (error.message.includes("SQLITE_ERROR")) {
+  if (error && error.message && error.message.includes("SQLITE_ERROR")) {
     console.error(error.message);
   } else {
     throw error;
