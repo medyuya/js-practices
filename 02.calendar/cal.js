@@ -42,10 +42,16 @@ for (
     weekRowText += " ";
   }
 
-  weekRowText += `${day}${isSaturday(date) ? "" : " "}`;
+  weekRowText += `${day}${addSpaceExceptForLineEnd(date)}`;
 
   if (isSaturday(date) || date.getDate() === endDate.getDate()) {
     console.log(weekRowText);
     weekRowText = "";
+  }
+}
+
+function addSpaceExceptForLineEnd(date) {
+  if (!isSaturday(date) || date.getDate() !== endDate.getDate()) {
+    return " ";
   }
 }
