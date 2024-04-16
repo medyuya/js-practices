@@ -17,17 +17,13 @@ const targetMonthName = format(startDate, "MMMM");
 const monthYearTitle = `${targetMonthName} ${targetYear}`;
 const totalRowLength = 20;
 
-const startPosition =
-  Math.floor((totalRowLength - monthYearTitle.length) / 2) +
-  monthYearTitle.length;
-const centeredMonthYearTitle = monthYearTitle
-  .padStart(startPosition)
-  .padEnd(totalRowLength);
+const startPosition = Math.floor((totalRowLength - monthYearTitle.length) / 2);
+const centeredMonthYearTitle = `${" ".repeat(startPosition)}${monthYearTitle}`;
 
 console.log(centeredMonthYearTitle);
 console.log("Su Mo Tu We Th Fr Sa");
 
-let weekRowText = "   ".repeat(getDay(startDate));
+let weekRowText = " ".repeat(getDay(startDate) * 3);
 
 const endDate = new Date(targetYear, targetMonth, 0);
 
