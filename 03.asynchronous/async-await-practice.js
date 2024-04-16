@@ -47,7 +47,6 @@ await timers.setTimeout(300);
 console.log("------------");
 
 // エラー有り
-
 await runQuery(
   db,
   "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
