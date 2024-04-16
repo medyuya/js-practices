@@ -10,6 +10,7 @@ db.run(
   "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
   () => {
     db.run("INSERT INTO books(title) VALUES(?)", ["ruby"], function () {
+      console.log(this.lastID);
       db.get(
         "SELECT * FROM books WHERE title = ?",
         ["ruby"],

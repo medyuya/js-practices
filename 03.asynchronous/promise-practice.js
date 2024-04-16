@@ -11,7 +11,7 @@ function runQuery(db, query, params) {
       if (error) {
         reject(error);
       } else {
-        resolve();
+        resolve(this);
       }
     });
   });
@@ -32,7 +32,10 @@ function getRow(db, query, params) {
 // エラー無し
 runQuery(db, "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   .then(() => runQuery(db, "INSERT INTO books(title) VALUES(?)", ["ruby"]))
-  .then(() => getRow(db, "SELECT * FROM books WHERE title = ?", ["ruby"]))
+  .then((row) => {
+    console.log(row.lastID);
+    return getRow(db, "SELECT * FROM books WHERE title = ?", ["ruby"]);
+  })
   .then((row) => {
     console.log(row.id);
     return runQuery(db, "DROP TABLE books");
