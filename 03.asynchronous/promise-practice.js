@@ -44,13 +44,13 @@ console.log("------------");
 
 // エラー有り
 runQuery(db, "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
-  .then(() => {
-    return runQuery(db, "INSERT INTO books(title) VALUES(?)", [
+  .then(() =>
+    runQuery(db, "INSERT INTO books(title) VALUES(?)", [
       "ruby",
       "ruby",
       "ruby",
-    ]);
-  })
+    ]),
+  )
   .catch((error) => {
     console.error(error.message);
     return getRow(db, "SELECT * FROM posts WHERE title = ?", ["ruby"]);
