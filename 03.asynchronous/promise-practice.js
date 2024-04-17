@@ -1,33 +1,11 @@
 #!/usr/bin/env node
 
-import timers from "timers/promises";
 import sqlite3 from "sqlite3";
+import runQuery from "./exec-query-functions/run-query-function.js";
+import getRow from "./exec-query-functions/get-query-function.js";
+import timers from "timers/promises";
 
 const db = new sqlite3.Database(":memory:");
-
-function runQuery(db, query, params) {
-  return new Promise(function (resolve, reject) {
-    db.run(query, params, function (error) {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(this);
-      }
-    });
-  });
-}
-
-function getRow(db, query, params) {
-  return new Promise(function (resolve, reject) {
-    db.get(query, params, function (error, row) {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(row);
-      }
-    });
-  });
-}
 
 // エラー無し
 runQuery(db, "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
