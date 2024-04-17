@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import Memo from "./memo.js";
 import inquirer from "inquirer";
 
