@@ -51,11 +51,9 @@ for (
 ) {
   const day = date.getDate();
 
-  if (day.toString().length < 2) {
-    weekRowText += " ";
-  }
-
-  weekRowText += `${day}${insertSpaceExceptForLineEnd(date)}`;
+  weekRowText += `${day
+    .toString()
+    .padStart(2, " ")}${insertSpaceExceptForLineEnd(date)}`;
 
   if (
     dfnsIsSaturday(date) ||
