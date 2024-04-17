@@ -5,6 +5,19 @@ import getDay from "date-fns/getDay";
 import isSaturday from "date-fns/isSaturday";
 import minimist from "minimist";
 
+function centralizeText(rowLength, text) {
+  const startPosition = Math.floor((rowLength - text.length) / 2);
+  return `${" ".repeat(startPosition)}${text}`;
+}
+
+function insertSpaceExceptForLineEnd(date) {
+  if (!isSaturday(date) || date.getDate() !== endDate.getDate()) {
+    return " ";
+  }
+
+  return "";
+}
+
 const args = minimist(process.argv.slice(2));
 
 const today = new Date();
@@ -42,17 +55,4 @@ for (
     console.log(weekRowText);
     weekRowText = "";
   }
-}
-
-function centralizeText(rowLength, text) {
-  const startPosition = Math.floor((rowLength - text.length) / 2);
-  return `${" ".repeat(startPosition)}${text}`;
-}
-
-function insertSpaceExceptForLineEnd(date) {
-  if (!isSaturday(date) || date.getDate() !== endDate.getDate()) {
-    return " ";
-  }
-
-  return "";
 }
