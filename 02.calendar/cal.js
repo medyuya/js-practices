@@ -13,7 +13,11 @@ function centralizeText(rowLength, text) {
 }
 
 function insertSpaceExceptForLineEnd(date) {
-  if (!dfnsIsSaturday(date) || date.getDate() !== endDate.getDate()) {
+  if (
+    !dfnsIsSaturday(date) ||
+    (date.getDate() === endDate.getDate() &&
+      date.getMonth() === endDate.getMonth())
+  ) {
     return " ";
   }
 
@@ -53,7 +57,11 @@ for (
 
   weekRowText += `${day}${insertSpaceExceptForLineEnd(date)}`;
 
-  if (dfnsIsSaturday(date) || date.getDate() === endDate.getDate()) {
+  if (
+    dfnsIsSaturday(date) ||
+    (date.getDate() === endDate.getDate() &&
+      date.getMonth() === endDate.getMonth())
+  ) {
     console.log(weekRowText);
     weekRowText = "";
   }
