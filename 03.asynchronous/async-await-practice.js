@@ -13,10 +13,12 @@ await runQuery(
   "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)",
 );
 
-let row = await runQuery(db, "INSERT INTO books(title) VALUES(?)", ["ruby"]);
-console.log(row.lastID);
+const statement = await runQuery(db, "INSERT INTO books(title) VALUES(?)", [
+  "ruby",
+]);
+console.log(statement.lastID);
 
-row = await getRow(db, "SELECT * FROM books WHERE title = ?", ["ruby"]);
+const row = await getRow(db, "SELECT * FROM books WHERE title = ?", ["ruby"]);
 console.log(row.id);
 
 await runQuery(db, "DROP TABLE books");

@@ -10,8 +10,8 @@ const db = new sqlite3.Database(":memory:");
 // エラー無し
 runQuery(db, "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL)")
   .then(() => runQuery(db, "INSERT INTO books(title) VALUES(?)", ["ruby"]))
-  .then((row) => {
-    console.log(row.lastID);
+  .then((statement) => {
+    console.log(statement.lastID);
     return getRow(db, "SELECT * FROM books WHERE title = ?", ["ruby"]);
   })
   .then((row) => {
