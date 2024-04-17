@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
-import format from "date-fns/format";
-import getDay from "date-fns/getDay";
-import isSaturday from "date-fns/isSaturday";
+import {
+  format as dfnsFormat,
+  getDay as dfnsGetDay,
+  isSaturday as dfnsIsSaturday,
+} from "date-fns";
 import minimist from "minimist";
 
 function centralizeText(rowLength, text) {
@@ -11,7 +13,7 @@ function centralizeText(rowLength, text) {
 }
 
 function insertSpaceExceptForLineEnd(date) {
-  if (!isSaturday(date) || date.getDate() !== endDate.getDate()) {
+  if (!dfnsIsSaturday(date) || date.getDate() !== endDate.getDate()) {
     return " ";
   }
 
@@ -25,7 +27,7 @@ const targetYear = args.y ?? today.getFullYear();
 const targetMonth = args.m ?? today.getMonth() + 1;
 const startDate = new Date(targetYear, targetMonth - 1, 1);
 
-const targetMonthName = format(startDate, "MMMM");
+const targetMonthName = dfnsFormat(startDate, "MMMM");
 
 const TOTAL_ROW_LENGTH = 20;
 const monthYearTitle = `${targetMonthName} ${targetYear}`;
@@ -34,7 +36,7 @@ const centeredMonthYearTitle = centralizeText(TOTAL_ROW_LENGTH, monthYearTitle);
 console.log(centeredMonthYearTitle);
 console.log("Su Mo Tu We Th Fr Sa");
 
-let weekRowText = " ".repeat(getDay(startDate) * 3);
+let weekRowText = " ".repeat(dfnsGetDay(startDate) * 3);
 
 const endDate = new Date(targetYear, targetMonth, 0);
 
@@ -51,7 +53,7 @@ for (
 
   weekRowText += `${day}${insertSpaceExceptForLineEnd(date)}`;
 
-  if (isSaturday(date) || date.getDate() === endDate.getDate()) {
+  if (dfnsIsSaturday(date) || date.getDate() === endDate.getDate()) {
     console.log(weekRowText);
     weekRowText = "";
   }
