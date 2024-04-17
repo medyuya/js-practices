@@ -36,7 +36,7 @@ for (
     weekRowText += " ";
   }
 
-  weekRowText += `${day}${addSpaceExceptForLineEnd(date)}`;
+  weekRowText += `${day}${insertSpaceExceptForLineEnd(date)}`;
 
   if (isSaturday(date) || date.getDate() === endDate.getDate()) {
     console.log(weekRowText);
@@ -49,7 +49,7 @@ function centralizeText(rowLength, text) {
   return `${" ".repeat(startPosition)}${text}`;
 }
 
-function addSpaceExceptForLineEnd(date) {
+function insertSpaceExceptForLineEnd(date) {
   if (!isSaturday(date) || date.getDate() !== endDate.getDate()) {
     return " ";
   }
