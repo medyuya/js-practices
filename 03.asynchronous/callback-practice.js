@@ -11,6 +11,7 @@ db.run(
   () => {
     db.run("INSERT INTO books(title) VALUES(?)", ["ruby"], function () {
       console.log(this.lastID);
+
       db.get(
         "SELECT * FROM books WHERE title = ?",
         ["ruby"],
