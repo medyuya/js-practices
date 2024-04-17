@@ -45,7 +45,7 @@ let weekRowText = " ".repeat(dfnsGetDay(startDate) * 3);
 const endDate = new Date(targetYear, targetMonth, 0);
 
 for (
-  const date = new Date(startDate);
+  const date = new Date(targetYear, targetMonth - 1, 1);
   date <= endDate;
   date.setDate(date.getDate() + 1)
 ) {
