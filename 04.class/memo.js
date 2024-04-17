@@ -2,7 +2,7 @@ import {
   addDataToJsonFile,
   deleteDataToJsonFile,
   readJsonFile,
-} from "./jsonFileHandleFunctions.js";
+} from "./json-file-handle-functions.js";
 
 import { v4 as uuidv4 } from "uuid";
 
