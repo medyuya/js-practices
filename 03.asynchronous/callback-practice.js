@@ -12,15 +12,11 @@ db.run(
     db.run("INSERT INTO books(title) VALUES(?)", ["ruby"], function () {
       console.log(this.lastID);
 
-      db.get(
-        "SELECT * FROM books WHERE title = ?",
-        ["ruby"],
-        function (_, row) {
-          console.log(row.id);
+      db.get("SELECT * FROM books WHERE title = ?", ["ruby"], (_, row) => {
+        console.log(row.id);
 
-          db.run("DROP TABLE books");
-        },
-      );
+        db.run("DROP TABLE books");
+      });
     });
   },
 );
@@ -36,18 +32,14 @@ db.run(
     db.run(
       "INSERT INTO books(title) VALUES(?)",
       ["ruby", "ruby", "ruby"],
-      function (error) {
+      (error) => {
         console.error(error.message);
 
-        db.get(
-          "SELECT * FROM posts WHERE title = ?",
-          ["ruby"],
-          function (error) {
-            console.error(error.message);
+        db.get("SELECT * FROM posts WHERE title = ?", ["ruby"], (error) => {
+          console.error(error.message);
 
-            db.run("DROP TABLE books");
-          },
-        );
+          db.run("DROP TABLE books");
+        });
       },
     );
   },
