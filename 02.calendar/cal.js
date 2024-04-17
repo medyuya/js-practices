@@ -53,4 +53,6 @@ function insertSpaceExceptForLineEnd(date) {
   if (!isSaturday(date) || date.getDate() !== endDate.getDate()) {
     return " ";
   }
+
+  return "";
 }
