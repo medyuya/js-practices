@@ -8,6 +8,10 @@ function centralizeText(rowLength, text) {
   return `${" ".repeat(startPosition)}${text}`;
 }
 
+function createDateText(date) {
+  return date.getDate().toString().padStart(2, " ");
+}
+
 function insertSpaceExceptForLineEnd(date, endDate) {
   if (!dfns.isSaturday(date) || date !== endDate) {
     return " ";
@@ -40,10 +44,10 @@ for (
   date <= endDate;
   date.setDate(date.getDate() + 1)
 ) {
-  resultCalendarText += `${date
-    .getDate()
-    .toString()
-    .padStart(2, " ")}${insertSpaceExceptForLineEnd(date, endDate)}`;
+  resultCalendarText += `${createDateText(date)}${insertSpaceExceptForLineEnd(
+    date,
+    endDate,
+  )}`;
 
   if (dfns.isSaturday(date) || date === endDate) {
     resultCalendarText += "\n";
