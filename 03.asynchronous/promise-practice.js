@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
+import timers from "timers/promises";
 import sqlite3 from "sqlite3";
 import runQuery from "./exec-query-functions/run-query-function.js";
 import getRow from "./exec-query-functions/get-query-function.js";
-import timers from "timers/promises";
 
 const db = new sqlite3.Database(":memory:");
 
