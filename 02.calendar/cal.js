@@ -26,6 +26,7 @@ const today = new Date();
 const targetYear = args.y ?? today.getFullYear();
 const targetMonth = args.m ?? today.getMonth() + 1;
 const startDate = new Date(targetYear, targetMonth - 1, 1);
+const endDate = new Date(targetYear, targetMonth, 0);
 
 const targetMonthName = dfns.format(startDate, "MMMM");
 
@@ -37,8 +38,6 @@ console.log(centeredMonthYearTitle);
 console.log("Su Mo Tu We Th Fr Sa");
 
 let weekRowText = " ".repeat(dfns.getDay(startDate) * 3);
-
-const endDate = new Date(targetYear, targetMonth, 0);
 
 for (
   const date = new Date(targetYear, targetMonth - 1, 1);
