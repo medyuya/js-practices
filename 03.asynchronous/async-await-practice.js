@@ -2,8 +2,7 @@
 
 import timers from "timers/promises";
 import sqlite3 from "sqlite3";
-import runQuery from "./exec-query-functions/run-query-function.js";
-import getRow from "./exec-query-functions/get-query-function.js";
+import { runQuery, getRow } from "./exec-query-functions.js";
 
 const db = new sqlite3.Database(":memory:");
 
