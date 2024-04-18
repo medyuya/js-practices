@@ -40,7 +40,7 @@ resultCalendarText += "Su Mo Tu We Th Fr Sa\n";
 resultCalendarText += " ".repeat(dfns.getDay(startDate) * 3);
 
 for (
-  const date = new Date(targetYear, targetMonth - 1, 1);
+  const date = startDate;
   date <= endDate;
   date.setDate(date.getDate() + 1)
 ) {
