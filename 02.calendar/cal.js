@@ -12,14 +12,6 @@ function createDateText(date) {
   return date.getDate().toString().padStart(2, " ");
 }
 
-function insertSpaceExceptForLineEnd(date, endDate) {
-  if (!dfns.isSaturday(date) || date !== endDate) {
-    return " ";
-  }
-
-  return "";
-}
-
 const args = minimist(process.argv.slice(2));
 
 const today = new Date();
@@ -44,10 +36,14 @@ for (
   date <= endDate;
   date.setDate(date.getDate() + 1)
 ) {
-  resultCalendarText += `${createDateText(date)}${insertSpaceExceptForLineEnd(
-    date,
-    endDate,
-  )}`;
+  let dateText = createDateText(date);
+  let insertedSpaceDateText = "";
+
+  if (!dfns.isSaturday(date) || date !== endDate) {
+    insertedSpaceDateText = dateText.padEnd(3, " ");
+  }
+
+  resultCalendarText += insertedSpaceDateText;
 
   if (dfns.isSaturday(date) || date === endDate) {
     resultCalendarText += "\n";
