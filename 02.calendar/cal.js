@@ -45,9 +45,8 @@ for (
   date <= endDate;
   date.setDate(date.getDate() + 1)
 ) {
-  const day = date.getDate();
-
-  weekRowText += `${day
+  weekRowText += `${date
+    .getDate()
     .toString()
     .padStart(2, " ")}${insertSpaceExceptForLineEnd(date)}`;
 
