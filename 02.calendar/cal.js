@@ -8,12 +8,8 @@ function centralizeText(rowLength, text) {
   return `${" ".repeat(startPosition)}${text}`;
 }
 
-function insertSpaceExceptForLineEnd(date) {
-  if (
-    !dfns.isSaturday(date) ||
-    (date.getDate() === endDate.getDate() &&
-      date.getMonth() === endDate.getMonth())
-  ) {
+function insertSpaceExceptForLineEnd(date, endDate) {
+  if (!dfns.isSaturday(date) || date !== endDate) {
     return " ";
   }
 
@@ -47,9 +43,9 @@ for (
   resultCalendarText += `${date
     .getDate()
     .toString()
-    .padStart(2, " ")}${insertSpaceExceptForLineEnd(date)}`;
+    .padStart(2, " ")}${insertSpaceExceptForLineEnd(date, endDate)}`;
 
-  if (dfns.isSaturday(date)) {
+  if (dfns.isSaturday(date) || date === endDate) {
     resultCalendarText += "\n";
   }
 }
