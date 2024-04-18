@@ -37,13 +37,10 @@ for (
   date.setDate(date.getDate() + 1)
 ) {
   let dateText = createDateText(date);
-  let insertedSpaceDateText = "";
 
   if (!dfns.isSaturday(date) || date !== endDate) {
-    insertedSpaceDateText = dateText.padEnd(3, " ");
+    resultCalendarText += dateText.padEnd(3, " ");
   }
-
-  resultCalendarText += insertedSpaceDateText;
 
   if (dfns.isSaturday(date) || date === endDate) {
     resultCalendarText += "\n";
