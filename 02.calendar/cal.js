@@ -3,14 +3,14 @@
 import * as dfns from "date-fns";
 import minimist from "minimist";
 
-function centralizeText(rowLength, text) {
+const centralizeText = (rowLength, text) => {
   const startPosition = Math.floor((rowLength - text.length) / 2);
   return `${" ".repeat(startPosition)}${text}`;
-}
+};
 
-function createDateText(date) {
+const createDateText = (date) => {
   return date.getDate().toString().padStart(2, " ");
-}
+};
 
 const args = minimist(process.argv.slice(2));
 
