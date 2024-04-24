@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import timers from "timers/promises";
 import sqlite3 from "sqlite3";
 import { runQuery, getRow } from "./exec-query-functions.js";
 
@@ -21,8 +20,6 @@ const row = await getRow(db, "SELECT * FROM books WHERE title = ?", ["ruby"]);
 console.log(row.id);
 
 await runQuery(db, "DROP TABLE books");
-
-await timers.setTimeout(300);
 
 console.log("------------");
 
