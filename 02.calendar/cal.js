@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import * as dfns from "date-fns";
+import * as dateFns from "date-fns";
 import minimist from "minimist";
 
 const centralizeText = (rowLength, text) => {
@@ -21,7 +21,7 @@ const targetMonth = args.m ?? today.getMonth() + 1;
 const startDate = new Date(targetYear, targetMonth - 1, 1);
 const endDate = new Date(targetYear, targetMonth, 0);
 
-const targetMonthName = dfns.format(startDate, "MMMM");
+const targetMonthName = dateFns.format(startDate, "MMMM");
 
 const TOTAL_ROW_LENGTH = 20;
 const monthYearTitle = `${targetMonthName} ${targetYear}`;
@@ -29,7 +29,7 @@ const centeredMonthYearTitle = centralizeText(TOTAL_ROW_LENGTH, monthYearTitle);
 
 let resultCalendarText = `${centeredMonthYearTitle}\n`;
 resultCalendarText += "Su Mo Tu We Th Fr Sa\n";
-resultCalendarText += " ".repeat(dfns.getDay(startDate) * 3);
+resultCalendarText += " ".repeat(dateFns.getDay(startDate) * 3);
 
 for (
   const date = startDate;
@@ -38,11 +38,11 @@ for (
 ) {
   let dateText = createDateText(date);
 
-  if (!dfns.isSaturday(date) || date !== endDate) {
+  if (!dateFns.isSaturday(date) || date !== endDate) {
     resultCalendarText += dateText.padEnd(3, " ");
   }
 
-  if (dfns.isSaturday(date) || date === endDate) {
+  if (dateFns.isSaturday(date) || date === endDate) {
     resultCalendarText += "\n";
   }
 }
