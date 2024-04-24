@@ -12,7 +12,7 @@ export const runQuery = (db, query, params) => {
 
 export const getRow = (db, query, params) => {
   return new Promise((resolve, reject) => {
-    db.get(query, params, function (error, row) {
+    db.get(query, params, (error, row) => {
       if (error) {
         reject(error);
       } else {
