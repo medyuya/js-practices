@@ -27,9 +27,9 @@ const TOTAL_ROW_LENGTH = 20;
 const monthYearTitle = `${targetMonthName} ${targetYear}`;
 const centeredMonthYearTitle = centralizeText(TOTAL_ROW_LENGTH, monthYearTitle);
 
-let resultCalendarText = `${centeredMonthYearTitle}\n`;
-resultCalendarText += "Su Mo Tu We Th Fr Sa\n";
-resultCalendarText += " ".repeat(dateFns.getDay(startDate) * 3);
+let calendarText = `${centeredMonthYearTitle}\n`;
+calendarText += "Su Mo Tu We Th Fr Sa\n";
+calendarText += "   ".repeat(dateFns.getDay(startDate));
 
 for (
   const date = startDate;
@@ -39,12 +39,12 @@ for (
   let dateText = createDateText(date);
 
   if (!dateFns.isSaturday(date) || date !== endDate) {
-    resultCalendarText += dateText.padEnd(3, " ");
+    calendarText += dateText.padEnd(3, " ");
   }
 
   if (dateFns.isSaturday(date) || date === endDate) {
-    resultCalendarText += "\n";
+    calendarText += "\n";
   }
 }
 
-console.log(resultCalendarText);
+console.log(calendarText);
