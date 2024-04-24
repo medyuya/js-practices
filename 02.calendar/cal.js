@@ -8,10 +8,6 @@ const centralizeText = (rowLength, text) => {
   return `${" ".repeat(startPosition)}${text}`;
 };
 
-const createDateText = (date) => {
-  return date.getDate().toString().padStart(2, " ");
-};
-
 const args = minimist(process.argv.slice(2));
 
 const today = new Date();
@@ -36,7 +32,7 @@ for (
   date <= endDate;
   date.setDate(date.getDate() + 1)
 ) {
-  let dateText = createDateText(date);
+  let dateText = date.getDate().toString().padStart(2, " ");
 
   if (!dateFns.isSaturday(date) || date !== endDate) {
     calendarText += dateText.padEnd(3, " ");
