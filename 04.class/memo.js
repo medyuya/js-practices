@@ -1,14 +1,30 @@
+import { v4 as uuidv4 } from "uuid";
 import {
   addDataToJsonFile,
   deleteDataToJsonFile,
   readJsonFile,
 } from "./json-file-handle-functions.js";
 
-import { v4 as uuidv4 } from "uuid";
+const storagePath = "./memos.json";
+
+export function createStoredMemo(memo) {
+  addDataToJsonFile(storagePath, memo);
+}
+
+export function getAllStoredMemos() {
+  return readJsonFile(storagePath);
+}
+
+export function getStoredMemoById(id) {
+  const storedMemos = readJsonFile(storagePath);
+  return storedMemos.find((memo) => memo.id === id);
+}
+
+export function deleteStoredMemo(id) {
+  deleteDataToJsonFile(storagePath, id);
+}
 
 export default class Memo {
-  static storagePath = "./memos.json";
-
   constructor(id, firstLineContent, fullContent) {
     this.id = id;
     this.firstLineContent = firstLineContent;
@@ -22,11 +38,11 @@ export default class Memo {
       fullContent: inputFullText,
     };
 
-    addDataToJsonFile(Memo.storagePath, new_memo);
+    createStoredMemo(new_memo);
   }
 
   static all() {
-    const storedMemos = readJsonFile(Memo.storagePath);
+    const storedMemos = getAllStoredMemos();
 
     return storedMemos.map(
       (memo) => new Memo(memo.id, memo.firstLineContent, memo.fullContent),
@@ -34,11 +50,7 @@ export default class Memo {
   }
 
   static selectById(id) {
-    const storedMemos = readJsonFile(Memo.storagePath);
-
-    const selectedMemo = storedMemos.filter((memo) => {
-      return memo.id === id;
-    })[0];
+    const selectedMemo = getStoredMemoById(id);
 
     return new Memo(
       selectedMemo.id,
@@ -48,6 +60,6 @@ export default class Memo {
   }
 
   destroy() {
-    deleteDataToJsonFile(Memo.storagePath, this.id);
+    deleteStoredMemo(this.id);
   }
 }
