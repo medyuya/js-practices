@@ -28,9 +28,9 @@ export default class Memo {
   static all() {
     const storedMemos = readJsonFile(Memo.storagePath);
 
-    return storedMemos.map(function (memo) {
-      return new Memo(memo.id, memo.firstLineContent, memo.fullContent);
-    });
+    return storedMemos.map(
+      (memo) => new Memo(memo.id, memo.firstLineContent, memo.fullContent),
+    );
   }
 
   static selectById(id) {
