@@ -1,27 +1,23 @@
 import { v4 as uuidv4 } from "uuid";
-import {
-  addDataToJsonFile,
-  deleteDataToJsonFile,
-  readJsonFile,
-} from "./json-file-handle-functions.js";
+import * as jsonFileHandlers from "./json-file-handlers.js";
 
 const storagePath = "./memos.json";
 
 export function createStoredMemo(memo) {
-  addDataToJsonFile(storagePath, memo);
+  jsonFileHandlers.add(storagePath, memo);
 }
 
 export function getAllStoredMemos() {
-  return readJsonFile(storagePath);
+  return jsonFileHandlers.read(storagePath);
 }
 
 export function getStoredMemoById(id) {
-  const storedMemos = readJsonFile(storagePath);
+  const storedMemos = jsonFileHandlers.read(storagePath);
   return storedMemos.find((memo) => memo.id === id);
 }
 
-export function deleteStoredMemo(id) {
-  deleteDataToJsonFile(storagePath, id);
+export function destroyStoredMemo(id) {
+  jsonFileHandlers.destroy(storagePath, id);
 }
 
 export default class Memo {
@@ -60,6 +56,6 @@ export default class Memo {
   }
 
   destroy() {
-    deleteStoredMemo(this.id);
+    destroyStoredMemo(this.id);
   }
 }
