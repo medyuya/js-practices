@@ -34,11 +34,11 @@ for (
 ) {
   let dateText = date.getDate().toString().padStart(2, " ");
 
-  if (!dateFns.isSaturday(date) || date !== endDate) {
+  if (!dateFns.isSaturday(date) || date.toString() !== endDate.toString()) {
     calendarText += dateText.padEnd(3, " ");
   }
 
-  if (dateFns.isSaturday(date) || date === endDate) {
+  if (dateFns.isSaturday(date) || date.toString() === endDate.toString()) {
     calendarText += "\n";
   }
 }
