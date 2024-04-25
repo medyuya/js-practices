@@ -6,13 +6,13 @@ import minimist from "minimist";
 
 const argv = minimist(process.argv.slice(2));
 
-if (hasGivenOptions(argv)) {
+if (hasGivenSpecifiedOptions(argv)) {
   handleOptionInput(argv);
 } else {
   handleStandardInput();
 }
 
-function hasGivenOptions(argv) {
+function hasGivenSpecifiedOptions(argv) {
   return argv.l || argv.r || argv.d;
 }
 
