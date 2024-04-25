@@ -2,45 +2,44 @@
 
 import Memo from "./memo.js";
 import inquirer from "inquirer";
+import minimist from "minimist";
 
-const args = process.argv.slice(2);
-const option = args[0];
+const argv = minimist(process.argv.slice(2));
 
-if (option) {
-  handleOptionInput(option);
+const hasGivenOptions = (argv) => {
+  return argv.l || argv.r || argv.d;
+};
+
+if (hasGivenOptions(argv)) {
+  handleOptionInput(argv);
 } else {
   handleStandardInput();
 }
 
-function handleOptionInput(option) {
-  switch (option) {
-    case "-l":
-      Memo.all().forEach((memo) => {
-        console.log(memo.firstLineContent);
-      });
+function handleOptionInput(argv) {
+  if (argv.l) {
+    Memo.all().forEach((memo) => {
+      console.log(memo.firstLineContent);
+    });
+  }
 
-      break;
-    case "-r": {
-      (async () => {
-        const selectedMemo = await chooseOneMemoFromOptions(
-          "Choose a note you want to see:",
-        );
-        console.log(selectedMemo.fullContent);
-      })();
+  if (argv.r) {
+    (async () => {
+      const selectedMemo = await chooseOneMemoFromOptions(
+        "Choose a note you want to see:",
+      );
+      console.log(selectedMemo.fullContent);
+    })();
+  }
 
-      break;
-    }
-    case "-d": {
-      (async () => {
-        const selectedMemo = await chooseOneMemoFromOptions(
-          "Choose a note you want to delete:",
-        );
-        selectedMemo.destroy();
-        console.log("削除しました");
-      })();
-
-      break;
-    }
+  if (argv.d) {
+    (async () => {
+      const selectedMemo = await chooseOneMemoFromOptions(
+        "Choose a note you want to delete:",
+      );
+      selectedMemo.destroy();
+      console.log("削除しました");
+    })();
   }
 }
 
