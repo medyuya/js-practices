@@ -1,15 +1,15 @@
 import fs from "fs";
 
-export function add(path, newData) {
-  const jsonData = read(path);
+export function addDataToJsonFile(path, newData) {
+  const jsonData = readJsonFile(path);
 
   jsonData.push(newData);
 
   fs.writeFileSync(path, JSON.stringify(jsonData), "utf8");
 }
 
-export function destroy(path, id) {
-  const jsonData = read(path);
+export function deleteDataToJsonFile(path, id) {
+  const jsonData = readJsonFile(path);
 
   const deletedJsonData = jsonData.filter((data) => {
     return data.id !== id;
@@ -18,7 +18,7 @@ export function destroy(path, id) {
   fs.writeFileSync(path, JSON.stringify(deletedJsonData), "utf8");
 }
 
-export function read(path) {
+export function readJsonFile(path) {
   if (!fs.existsSync(path)) {
     return [];
   }

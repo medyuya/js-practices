@@ -1,24 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
-import * as jsonFileHandlers from "./json-file-handlers.js";
+import { MemoRepositoryJson } from "./memo-repository-json.js";
 
-const storagePath = "./memos.json";
-
-export function createStoredMemo(memo) {
-  jsonFileHandlers.add(storagePath, memo);
-}
-
-export function getAllStoredMemos() {
-  return jsonFileHandlers.read(storagePath);
-}
-
-export function getStoredMemoById(id) {
-  const storedMemos = jsonFileHandlers.read(storagePath);
-  return storedMemos.find((memo) => memo.id === id);
-}
-
-export function destroyStoredMemo(id) {
-  jsonFileHandlers.destroy(storagePath, id);
-}
+const repository = new MemoRepositoryJson();
 
 export default class Memo {
   constructor(id, firstLineContent, fullContent) {
@@ -34,11 +17,11 @@ export default class Memo {
       fullContent: inputFullText,
     };
 
-    createStoredMemo(new_memo);
+    repository.create(new_memo);
   }
 
   static all() {
-    const storedMemos = getAllStoredMemos();
+    const storedMemos = repository.all();
 
     return storedMemos.map(
       (memo) => new Memo(memo.id, memo.firstLineContent, memo.fullContent),
@@ -46,7 +29,8 @@ export default class Memo {
   }
 
   static selectById(id) {
-    const selectedMemo = getStoredMemoById(id);
+    const storedMemos = repository.all();
+    const selectedMemo = storedMemos.find((memo) => memo.id === id);
 
     return new Memo(
       selectedMemo.id,
@@ -56,6 +40,6 @@ export default class Memo {
   }
 
   destroy() {
-    destroyStoredMemo(this.id);
+    repository.destroy(this.id);
   }
 }
