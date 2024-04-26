@@ -17,6 +17,8 @@ const targetMonth = args.m ?? today.getMonth() + 1;
 const startDate = new Date(targetYear, targetMonth - 1, 1);
 const endDate = new Date(targetYear, targetMonth, 0);
 
+// console.log(endDate.getDate().toString());
+
 const targetMonthName = dateFns.format(startDate, "MMMM");
 
 const TOTAL_ROW_LENGTH = 20;
@@ -34,7 +36,12 @@ for (
 ) {
   let dateText = date.getDate().toString().padStart(2, " ");
 
+  let isSpaceAfterDate = date.toString() === endDate.toString();
   if (!dateFns.isSaturday(date) || date.toString() !== endDate.toString()) {
+    isSpaceAfterDate = true;
+  }
+
+  if (isSpaceAfterDate) {
     calendarText += dateText.padEnd(3, " ");
   }
 
