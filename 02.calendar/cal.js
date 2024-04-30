@@ -34,8 +34,11 @@ for (
 ) {
   let dateText = date.getDate().toString().padStart(2, " ");
 
-  let isSpaceAfterDate = date.toString() === endDate.toString();
-  if (!dateFns.isSaturday(date) || date.toString() !== endDate.toString()) {
+  let isSpaceAfterDate = date.toDateString() === endDate.toDateString();
+  if (
+    !dateFns.isSaturday(date) ||
+    date.toDateString() !== endDate.toDateString()
+  ) {
     isSpaceAfterDate = true;
   }
 
@@ -43,7 +46,10 @@ for (
     calendarText += dateText.padEnd(3, " ");
   }
 
-  if (dateFns.isSaturday(date) || date.toString() === endDate.toString()) {
+  if (
+    dateFns.isSaturday(date) ||
+    date.toDateString() === endDate.toDateString()
+  ) {
     calendarText += "\n";
   }
 }
