@@ -3,7 +3,7 @@
 import * as dateFns from "date-fns";
 import minimist from "minimist";
 
-const centralizeText = (rowLength, text) => {
+const centerText = (rowLength, text) => {
   const startPosition = Math.floor((rowLength - text.length) / 2);
   return `${" ".repeat(startPosition)}${text}`;
 };
@@ -17,13 +17,11 @@ const targetMonth = args.m ?? today.getMonth() + 1;
 const startDate = new Date(targetYear, targetMonth - 1, 1);
 const endDate = new Date(targetYear, targetMonth, 0);
 
-// console.log(endDate.getDate().toString());
-
 const targetMonthName = dateFns.format(startDate, "MMMM");
 
 const TOTAL_ROW_LENGTH = 20;
 const monthYearTitle = `${targetMonthName} ${targetYear}`;
-const centeredMonthYearTitle = centralizeText(TOTAL_ROW_LENGTH, monthYearTitle);
+const centeredMonthYearTitle = centerText(TOTAL_ROW_LENGTH, monthYearTitle);
 
 let calendarText = `${centeredMonthYearTitle}\n`;
 calendarText += "Su Mo Tu We Th Fr Sa\n";
