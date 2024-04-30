@@ -28,9 +28,9 @@ calendarText += "Su Mo Tu We Th Fr Sa\n";
 calendarText += "   ".repeat(dateFns.getDay(startDate));
 
 for (
-  const date = new Date(targetYear, targetMonth - 1, 1);
+  let date = new Date(targetYear, targetMonth - 1, 1);
   date <= endDate;
-  date.setDate(date.getDate() + 1)
+  date = new Date(date.setDate(date.getDate() + 1))
 ) {
   let dateText = date.getDate().toString().padStart(2, " ");
 
