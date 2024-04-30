@@ -34,17 +34,10 @@ for (
 ) {
   let dateText = date.getDate().toString().padStart(2, " ");
 
-  let isSpaceAfterDate = date.toDateString() === endDate.toDateString();
-  if (
-    !dateFns.isSaturday(date) ||
-    date.toDateString() !== endDate.toDateString()
-  ) {
-    isSpaceAfterDate = true;
-  }
-
-  if (isSpaceAfterDate) {
-    calendarText += dateText.padEnd(3, " ");
-  }
+  calendarText +=
+    !dateFns.isSaturday(date) && date.toDateString() !== endDate.toDateString()
+      ? dateText.padEnd(3, " ")
+      : dateText;
 
   if (
     dateFns.isSaturday(date) ||
