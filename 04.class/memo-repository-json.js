@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import {
   addDataToJsonFile,
   deleteDataToJsonFile,
@@ -10,6 +11,7 @@ export class MemoRepositoryJson {
   }
 
   create(memo) {
+    memo.id = uuidv4();
     return addDataToJsonFile(this.storagePath, memo);
   }
 

@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import { MemoRepositoryJson } from "./memo-repository-json.js";
 
 const repository = new MemoRepositoryJson();
@@ -12,7 +11,6 @@ export default class Memo {
 
   static create(inputFullText) {
     const new_memo = {
-      id: uuidv4(),
       firstLineContent: inputFullText.match(/^.+/m)[0],
       fullContent: inputFullText,
     };
