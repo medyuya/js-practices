@@ -27,16 +27,17 @@ let calendarText = `${centeredMonthYearTitle}\n`;
 calendarText += "Su Mo Tu We Th Fr Sa\n";
 calendarText += "   ".repeat(dateFns.getDay(startDate));
 
-let date = startDate;
-while (date <= endDate) {
+for (
+  let date = new Date(targetYear, targetMonth - 1, 1);
+  date <= endDate;
+  date = new Date(date.setDate(date.getDate() + 1))
+) {
   let dateText = date.getDate().toString().padStart(2, " ");
 
   calendarText +=
     dateFns.isSaturday(date) || date.getTime() === endDate.getTime()
       ? dateText + "\n"
       : dateText.padEnd(3, " ");
-
-  date = dateFns.addDays(date, 1);
 }
 
 console.log(calendarText);
