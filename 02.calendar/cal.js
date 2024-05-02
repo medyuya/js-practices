@@ -27,6 +27,10 @@ let calendarText = `${centeredMonthYearTitle}\n`;
 calendarText += "Su Mo Tu We Th Fr Sa\n";
 calendarText += "   ".repeat(dateFns.getDay(startDate));
 
+const isSaturdayOrMonthEndDate = (dateFns, date, endDate) => {
+  return dateFns.isSaturday(date) || date.getTime() === endDate.getTime();
+};
+
 for (
   let date = new Date(targetYear, targetMonth - 1, 1);
   date <= endDate;
@@ -34,12 +38,11 @@ for (
 ) {
   let dateText = date.getDate().toString().padStart(2, " ");
 
-  calendarText +=
-    !dateFns.isSaturday(date) && date.getTime() !== endDate.getTime()
-      ? dateText.padEnd(3, " ")
-      : dateText;
+  calendarText += !isSaturdayOrMonthEndDate(dateFns, date, endDate)
+    ? dateText.padEnd(3, " ")
+    : dateText;
 
-  if (dateFns.isSaturday(date) || date.getTime() === endDate.getTime()) {
+  if (isSaturdayOrMonthEndDate(dateFns, date, endDate)) {
     calendarText += "\n";
   }
 }
