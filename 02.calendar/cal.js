@@ -8,6 +8,10 @@ const centerText = (rowLength, text) => {
   return `${" ".repeat(startPosition)}${text}`;
 };
 
+const isSaturdayOrMonthEndDate = (dateFns, date, endDate) => {
+  return dateFns.isSaturday(date) || date.getTime() === endDate.getTime();
+};
+
 const args = minimist(process.argv.slice(2));
 
 const today = new Date();
@@ -27,15 +31,8 @@ let calendarText = `${centeredMonthYearTitle}\n`;
 calendarText += "Su Mo Tu We Th Fr Sa\n";
 calendarText += "   ".repeat(dateFns.getDay(startDate));
 
-const isSaturdayOrMonthEndDate = (dateFns, date, endDate) => {
-  return dateFns.isSaturday(date) || date.getTime() === endDate.getTime();
-};
-
-for (
-  let date = new Date(targetYear, targetMonth - 1, 1);
-  date <= endDate;
-  date = new Date(date.setDate(date.getDate() + 1))
-) {
+let date = startDate;
+while (date <= endDate) {
   let dateText = date.getDate().toString().padStart(2, " ");
 
   calendarText += !isSaturdayOrMonthEndDate(dateFns, date, endDate)
@@ -45,6 +42,8 @@ for (
   if (isSaturdayOrMonthEndDate(dateFns, date, endDate)) {
     calendarText += "\n";
   }
+
+  date = dateFns.addDays(date, 1);
 }
 
 console.log(calendarText);
