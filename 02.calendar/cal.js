@@ -35,14 +35,11 @@ for (
   let dateText = date.getDate().toString().padStart(2, " ");
 
   calendarText +=
-    !dateFns.isSaturday(date) && date.toDateString() !== endDate.toDateString()
+    !dateFns.isSaturday(date) && date.getTime() !== endDate.getTime()
       ? dateText.padEnd(3, " ")
       : dateText;
 
-  if (
-    dateFns.isSaturday(date) ||
-    date.toDateString() === endDate.toDateString()
-  ) {
+  if (dateFns.isSaturday(date) || date.getTime() === endDate.getTime()) {
     calendarText += "\n";
   }
 }
