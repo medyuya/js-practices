@@ -8,10 +8,6 @@ const centerText = (rowLength, text) => {
   return `${" ".repeat(startPosition)}${text}`;
 };
 
-const isSaturdayOrMonthEndDate = (dateFns, date, endDate) => {
-  return dateFns.isSaturday(date) || date.getTime() === endDate.getTime();
-};
-
 const args = minimist(process.argv.slice(2));
 
 const today = new Date();
@@ -35,13 +31,10 @@ let date = startDate;
 while (date <= endDate) {
   let dateText = date.getDate().toString().padStart(2, " ");
 
-  calendarText += !isSaturdayOrMonthEndDate(dateFns, date, endDate)
-    ? dateText.padEnd(3, " ")
-    : dateText;
-
-  if (isSaturdayOrMonthEndDate(dateFns, date, endDate)) {
-    calendarText += "\n";
-  }
+  calendarText +=
+    dateFns.isSaturday(date) || date.getTime() === endDate.getTime()
+      ? dateText + "\n"
+      : dateText.padEnd(3, " ");
 
   date = dateFns.addDays(date, 1);
 }
