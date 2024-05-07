@@ -30,7 +30,7 @@ calendarText += "   ".repeat(dateFns.getDay(startDate));
 for (
   let date = new Date(targetYear, targetMonth - 1, 1);
   date <= endDate;
-  date = new Date(date.setDate(date.getDate() + 1))
+  date = dateFns.addDays(date, 1)
 ) {
   let dateText = date.getDate().toString().padStart(2, " ");
 
