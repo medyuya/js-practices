@@ -36,7 +36,7 @@ for (
 
   calendarText +=
     dateFns.isSaturday(date) || date.getTime() === endDate.getTime()
-      ? dateText + "\n"
+      ? `${dateText} \n`
       : dateText.padEnd(3, " ");
 }
 
