@@ -27,11 +27,7 @@ let calendarText = `${centeredMonthYearTitle}\n`;
 calendarText += "Su Mo Tu We Th Fr Sa\n";
 calendarText += "   ".repeat(dateFns.getDay(startDate));
 
-for (
-  let date = new Date(targetYear, targetMonth - 1, 1);
-  date <= endDate;
-  date = dateFns.addDays(date, 1)
-) {
+for (let date = startDate; date <= endDate; date = dateFns.addDays(date, 1)) {
   let dateText = date.getDate().toString().padStart(2, " ");
 
   calendarText +=
