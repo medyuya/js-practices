@@ -32,8 +32,8 @@ for (let date = startDate; date <= endDate; date = dateFns.addDays(date, 1)) {
 
   calendarText +=
     dateFns.isSaturday(date) || date.getTime() === endDate.getTime()
-      ? `${dateText} \n`
-      : dateText.padEnd(3, " ");
+      ? `${dateText}\n`
+      : dateText.padEnd(3, "_");
 }
 
 console.log(calendarText);
